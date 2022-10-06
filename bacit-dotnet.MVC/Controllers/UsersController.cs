@@ -24,11 +24,10 @@ namespace bacit_dotnet.MVC.Controllers
                 if (currentUser != null)
                 {
                     model.EmployeeNumber = currentUser.EmployeeNumber;
-                    model.Email = currentUser.Email;
                     model.Name = currentUser.Name;
-                    model.Role = currentUser.Role;
+                    model.Email = currentUser.Email;
                     model.Password = currentUser.Password;
-                    model.Team = currentUser.Team;
+                    model.IsAdmin = currentUser.IsAdmin;
                 }
             }
             return View(model);
@@ -40,12 +39,11 @@ namespace bacit_dotnet.MVC.Controllers
 
             UserEntity newUser = new UserEntity
             {
+                EmployeeNumber = model.EmployeeNumber,
                 Name = model.Name,
                 Email = model.Email,
-                EmployeeNumber = model.EmployeeNumber,
                 Password = model.Password,
-                Role = model.Role,
-                Team = model.Team,
+                IsAdmin = model.IsAdmin,
             };
             userRepository.Save(newUser);
             return RedirectToAction("Index");

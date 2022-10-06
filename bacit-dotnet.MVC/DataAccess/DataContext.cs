@@ -14,7 +14,7 @@ namespace bacit_dotnet.MVC.DataAccess
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserEntity>().HasKey(x => x.Id);
+            modelBuilder.Entity<UserEntity>().HasKey(x => x.EmployeeNumber);
             base.OnModelCreating(modelBuilder);
         }
 

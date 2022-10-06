@@ -18,12 +18,11 @@ namespace bacit_dotnet.MVC.Repositories
             }
             else
             {
-                existingUser.Email = user.Email;
                 existingUser.EmployeeNumber = user.EmployeeNumber;
                 existingUser.Name = user.Name;
-                existingUser.Role = user.Role;
+                existingUser.Email = user.Email;
                 existingUser.Password = user.Password;
-                existingUser.Team = user.Team;
+                existingUser.IsAdmin = user.IsAdmin;
             }
         }
 
