@@ -2,16 +2,13 @@ create database if not exists webAppDatabase;
 use webAppDatabase;
 create table if not EXISTS users
 (
-    Id              integer UNIQUE auto_increment,
-    Name        varchar(255),
-    Email     varchar(255) UNIQUE,
+    EmployeeNumber varchar(20) PRIMARY KEY,
+    Name        varchar(255) not null,
+    Email     varchar(255) UNIQUE not null,
     Password        varchar(255) not null,
-    EmployeeNumber        varchar(255) not null UNIQUE,
-    Team        varchar(255) not null,
-    Role        varchar(255) not null,
-    CONSTRAINT U_User_ID_PK PRIMARY KEY (Id)
+    IsAdmin        boolean not null DEFAULT false
 );
-insert into users(Name, Email, Password,EmployeeNumber,Team, Role ) values('Hans Gruber', 'hans@gruber.net', 'MrCowboy', '1','BadGuys','Villain');
-insert into users(Name, Email, Password,EmployeeNumber,Team, Role ) values('John McClane', 'jmcclane@nypd.com', 'yippekayay', '2','GoodGuys','Hero');
-insert into users(Name, Email, Password,EmployeeNumber,Team, Role ) values('Colin Powell', 'cpowell@lapd.com', 'twinkie', '3','GoodGuys','Sidekick');
-insert into users(Name, Email, Password,EmployeeNumber,Team, Role ) values('Mr Takagi', 'thebigcheeze@nakatomi.com', 'investments', '4','GoodGuys','CEO');
+insert into users(EmployeeNumber, Name, Email, Password,IsAdmin) values ('1234','Hans Gruber', 'hans@gruber.net','HashWorkInProgress',true);
+insert into users(EmployeeNumber, Name, Email, Password) values ('1235','John McClane', 'jmcclan@nypd.com','UnderConstruction');
+insert into users(EmployeeNumber, Name, Email, Password) values ('1236','Colin Powell', 'cpowell@lapd.com','twinkie');
+insert into users(EmployeeNumber, Name, Email, Password) values ('1237','Mr Takagi', 'thebigone@thetower.com','GitGudScrb');
