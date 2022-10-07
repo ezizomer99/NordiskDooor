@@ -9,6 +9,6 @@ namespace bacit_dotnet.MVC.Entities
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public bool IsAdmin { get; internal set; }
+        public bool IsAdmin { get; set; }
     }
 }

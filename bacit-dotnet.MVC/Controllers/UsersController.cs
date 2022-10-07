@@ -23,7 +23,7 @@ namespace bacit_dotnet.MVC.Controllers
                 var currentUser = model.Users.FirstOrDefault(x => x.Email == email);
                 if (currentUser != null)
                 {
-                    model.EmployeeNumber = currentUser.EmployeeNumber;
+                  
                     model.Name = currentUser.Name;
                     model.Email = currentUser.Email;
                     model.Password = currentUser.Password;
@@ -39,7 +39,7 @@ namespace bacit_dotnet.MVC.Controllers
 
             UserEntity newUser = new UserEntity
             {
-                EmployeeNumber = model.EmployeeNumber,
+                
                 Name = model.Name,
                 Email = model.Email,
                 Password = model.Password,

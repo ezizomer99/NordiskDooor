@@ -23,7 +23,7 @@ namespace bacit_dotnet.MVC.Repositories
         {
             using (var connection = sqlConnector.GetDbConnection())
             {
-                var reader = ReadData("Select EmployeeNumber, Name, Email, Password;", connection);
+                var reader = ReadData("Select EmployeeNumber, Name, Email, Password, isAdmin from users;", connection);
                 var users = new List<UserEntity>();
                 while (reader.Read())
                 {
@@ -39,7 +39,6 @@ namespace bacit_dotnet.MVC.Repositories
         private static UserEntity MapUserFromReader(IDataReader reader)
         {
             var user = new UserEntity();
-
             user.EmployeeNumber = reader.GetString(0);
             user.Name = reader.GetString(1);
             user.Email = reader.GetString(2);
@@ -53,7 +52,7 @@ namespace bacit_dotnet.MVC.Repositories
             UserEntity existingUser = null;
             using (var connection = sqlConnector.GetDbConnection())
             {
-                var reader = ReadData("Select EmployeeNumber, Name, Email, Password, IsAdmin;", connection);
+                var reader = ReadData("Select EmployeeNumber, Name, Email, Password, IsAdmin from users;", connection);
                
                 while (reader.Read())
                 {
@@ -65,15 +64,15 @@ namespace bacit_dotnet.MVC.Repositories
             {
                 var sql = $@"update users 
                                 set 
-                                   EmployeeNumber = '{user.EmployeeNumber}',
-                                   Name = '{user.Name}', 
-                                   Password='{user.Password}',
+
+                                Name = '{user.Name}', 
+                                Password='{user.Password}',
                                 where email = '{user.Email}';";
                 RunCommand(sql);
             }
             else 
             {
-                var sql = $"insert into users(EmployeeNumber, Name, Email, Password) values('{user.EmployeeNumber}', '{user.Name}', '{user.Email}', '{user.Password}');";
+                var sql = $"insert into users(Name, Email, Password) values('{user.Name}', '{user.Email}', '{user.Password}');";
                 RunCommand(sql);
             }
             

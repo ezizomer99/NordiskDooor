@@ -11,7 +11,7 @@ namespace bacit_dotnet.MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(SuggestionViewModel model) 
+        public IActionResult? Save(SuggestionViewModel model) 
         {
             if (!ModelState.IsValid)
                 throw new Exception("Dette gikk dårlig");
