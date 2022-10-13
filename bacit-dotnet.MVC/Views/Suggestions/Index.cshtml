@@ -1,60 +1,26 @@
-﻿@using bacit_dotnet.MVC.Models.Suggestions
-@model SuggestionViewModel
+﻿<form action="/suggestions/save" method="post">
 
+    <h1>Skriv inn ditt forbedringsforslag:</h1>
 
-
-<form action="/suggestions/save" method="post">
     <ul>
         <li>
-            <label for="Title">Tittel</label>
-            <input type="text" name="Title" />
+            <label for="Topic">Emne:</label><br />
+            <input type="text" name="Topic" placeholder="Emne" required />
+        </li>
+        <li>            
+            <label for="Suggestion">Forbedringsforslag:</label><br />
+            <input type="text" name="Suggestion" placeholder="Skriv inn forbedringsforlsag" required style="height:100px; width:300px;" />
         </li>
         <li>
-            <label for="Category">Kategori</label>
-            <input type="text" name="category" />
-        </li>
-        <li>
-            <label for="Team">Avdeling</label>
-            <input type="text" name="Team" />
-        </li>
-        <li>
-            <label for="Description">Beskrivelse</label>
-            <input type="text" name="Description" />
-        </li>
-        <li>
-            <label for="Phase">Fase</label>
-            <input type="text" name="Phase" />
-        </li>
-        <li>
-            <label for="Status">Status</label>
-            <input type="text" name="Status" />
-        </li>
-        <li>
-            <label for="TimeStamp">Tidspunkt</label>
-            <input type="datetime" name="TimeStamp" />
-        </li>
-        <li>
-            <label for="Deadline">Frist</label>
-            <input type="text" name="Deadline" />
+            <label for="Priorization">Prioritering:</label><br />
+            <select name="Prioritering" id="Priorization">
+                <option value="Lav">Lav</option>
+                <option value="Middels">Middels</option>
+                <option value="Høy">Høy</option>
+            </select>
         </li>
         <li>
             <input type="submit" value="Lagre" />
         </li>
     </ul>
 </form> 
-
-<table>
-    <tr>
-        <td>Tittel</td>
-    </tr>
-    @foreach (var user in Model.Suggestions)
-    {
-        <tr>
-            <td>Title</td>
-            <td><form  asp-action="delete" asp-controller="suggestions" method="post">
-                <input type="submit" value="Slett"/>
-            </form>
-            </td>
-        </tr>   
-    }
-</table>
