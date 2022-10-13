@@ -23,7 +23,7 @@ namespace bacit_dotnet.MVC.Repositories
         {
             using (var connection = sqlConnector.GetDbConnection())
             {
-                var reader = ReadData("Select id, Name, Email, Password,EmployeeNumber,Team, Role from users;", connection);
+                var reader = ReadData("Select EmployeeNumber, Name, Email, Password, IsAdmin from users;", connection);
                 var users = new List<UserEntity>();
                 while (reader.Read())
                 {
@@ -39,47 +39,19 @@ namespace bacit_dotnet.MVC.Repositories
         private static UserEntity MapUserFromReader(IDataReader reader)
         {
             var user = new UserEntity();
-            user.Id = reader.GetInt32(0);
+            user.EmployeeNumber = reader.GetString(0);
             user.Name = reader.GetString(1);
             user.Email = reader.GetString(2);
             user.Password = reader.GetString(3);
-            user.EmployeeNumber = reader.GetString(4);
-            user.Team = reader.GetString(5);
-            user.Role = reader.GetString(6);
+            user.IsAdmin = reader.GetBoolean(4);
             return user;
         }
 
-        public void Save(UserEntity user)
+        public void Add(UserEntity user)
         {
-            UserEntity existingUser = null;
-            using (var connection = sqlConnector.GetDbConnection())
-            {
-                var reader = ReadData("Select id, Name, Email, Password,EmployeeNumber,Team, Role from users;", connection);
-               
-                while (reader.Read())
-                {
-                    existingUser = MapUserFromReader(reader);
-                }
-                connection.Close();
-            }
-            if (existingUser!=null)
-            {
-                var sql = $@"update users 
-                                set 
-                                   Name = '{user.Name}', 
-                                   Password='{user.Password}',
-                                   EmployeeNumber = '{user.EmployeeNumber}',
-                                   Team ='{user.Team}', 
-                                   Role ='{user.Role}' 
-                                where email = '{user.Email}';";
+
+                var sql = $"insert into users(EmployeeNumber,Name, Email, Password ) values('{user.EmployeeNumber}','{user.Name}', '{user.Email}', '{user.Password}');";
                 RunCommand(sql);
-            }
-            else 
-            {
-                var sql = $"insert into users(Name, Email, Password,EmployeeNumber,Team, Role ) values('{user.Name}', '{user.Email}', '{user.Password}', '{user.EmployeeNumber}','{user.Team}','{user.Role}');";
-                RunCommand(sql);
-            }
-            
         }
 
         private void RunCommand(string sql)
