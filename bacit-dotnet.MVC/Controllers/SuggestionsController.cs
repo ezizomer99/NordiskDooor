@@ -15,7 +15,7 @@ namespace bacit_dotnet.MVC.Controllers
         {
             if (!ModelState.IsValid)
                 throw new Exception("Dette gikk dårlig");
-            if (string.IsNullOrWhiteSpace(model.Name))
+            if (string.IsNullOrWhiteSpace(model.Team))
                 throw new ArgumentException();
             return null;
         }

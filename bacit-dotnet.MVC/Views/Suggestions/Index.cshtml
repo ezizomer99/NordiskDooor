@@ -1,15 +1,20 @@
-﻿<form action="/suggestions/save" method="post">
+﻿@using bacit_dotnet.MVC.Models.Suggestions
+@model SuggestionViewModel
+
+
+
+<form action="/suggestions/save" method="post">
     <ul>
         <li>
             <label for="Title">Tittel</label>
             <input type="text" name="Title" />
         </li>
         <li>
-            <label for="Name">Navn</label>
-            <input type="text" name="Name" />
+            <label for="Category">Kategori</label>
+            <input type="text" name="category" />
         </li>
         <li>
-            <label for="Team">Team</label>
+            <label for="Team">Avdeling</label>
             <input type="text" name="Team" />
         </li>
         <li>
@@ -17,11 +22,39 @@
             <input type="text" name="Description" />
         </li>
         <li>
+            <label for="Phase">Fase</label>
+            <input type="text" name="Phase" />
+        </li>
+        <li>
+            <label for="Status">Status</label>
+            <input type="text" name="Status" />
+        </li>
+        <li>
             <label for="TimeStamp">Tidspunkt</label>
             <input type="datetime" name="TimeStamp" />
+        </li>
+        <li>
+            <label for="Deadline">Frist</label>
+            <input type="text" name="Deadline" />
         </li>
         <li>
             <input type="submit" value="Lagre" />
         </li>
     </ul>
 </form> 
+
+<table>
+    <tr>
+        <td>Tittel</td>
+    </tr>
+    @foreach (var user in Model.Suggestions)
+    {
+        <tr>
+            <td>@suggestion.Title</td>
+            <td><form  asp-action="delete" asp-controller="suggestions" method="post">
+                <input type="submit" value="Slett"/>
+            </form>
+            </td>
+        </tr>   
+    }
+</table>

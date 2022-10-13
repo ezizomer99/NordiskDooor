@@ -22,7 +22,7 @@ namespace bacit_dotnet.MVC.Controllers
         {
             var model = new RazorViewModel
             {
-                Content = "En time til ørsta rådhus"
+                Content = "Nordic Door"
             };
             return View("Index", model);
         }
