@@ -50,7 +50,7 @@
     @foreach (var user in Model.Suggestions)
     {
         <tr>
-            <td>@suggestion.Title</td>
+            <td>Title</td>
             <td><form  asp-action="delete" asp-controller="suggestions" method="post">
                 <input type="submit" value="Slett"/>
             </form>

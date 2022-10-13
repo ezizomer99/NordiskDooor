@@ -39,11 +39,15 @@ namespace bacit_dotnet.MVC.Repositories
             return suggestions;
         }
 
-        public void Add(SuggestionEntity suggestion)
+        public void AddSuggestion(SuggestionEntity suggestion)
         {
-            SuggestionEntity existingSuggestion = GetSuggestions(suggestion.)
+            //SuggestionEntity existingSuggestion = GetSuggestions(suggestion.)
         }
-
+        public void Delete(string email)
+        {
+            
+           Console.WriteLine("Work In Progress");
+        }
         private void RunCommand(string sql)
         {
             using (var connection = sqlConnector.GetDbConnection())

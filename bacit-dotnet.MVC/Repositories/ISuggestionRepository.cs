@@ -4,7 +4,7 @@ namespace bacit_dotnet.MVC.Repositories
 {
     public interface ISuggestionRepository
     {
-        void Save(SuggestionEntity user);
+        void AddSuggestion(SuggestionEntity user);
         List<SuggestionEntity> GetSuggestions();
         void Delete(string email);
     }
