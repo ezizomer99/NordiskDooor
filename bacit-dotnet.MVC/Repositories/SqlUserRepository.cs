@@ -23,7 +23,7 @@ namespace bacit_dotnet.MVC.Repositories
         {
             using (var connection = sqlConnector.GetDbConnection())
             {
-                var reader = ReadData("Select EmployeeNumber, Name, Email, Password, isAdmin from users;", connection);
+                var reader = ReadData("Select EmployeeNumber, Name, Email, Password, IsAdmin from users;", connection);
                 var users = new List<UserEntity>();
                 while (reader.Read())
                 {
@@ -47,35 +47,11 @@ namespace bacit_dotnet.MVC.Repositories
             return user;
         }
 
-        public void Save(UserEntity user)
+        public void Add(UserEntity user)
         {
-            UserEntity existingUser = null;
-            using (var connection = sqlConnector.GetDbConnection())
-            {
-                var reader = ReadData("Select EmployeeNumber, Name, Email, Password, IsAdmin from users;", connection);
-               
-                while (reader.Read())
-                {
-                    existingUser = MapUserFromReader(reader);
-                }
-                connection.Close();
-            }
-            if (existingUser!=null)
-            {
-                var sql = $@"update users 
-                                set 
 
-                                Name = '{user.Name}', 
-                                Password='{user.Password}',
-                                where email = '{user.Email}';";
+                var sql = $"insert into users(EmployeeNumber,Name, Email, Password ) values('{user.EmployeeNumber}','{user.Name}', '{user.Email}', '{user.Password}');";
                 RunCommand(sql);
-            }
-            else 
-            {
-                var sql = $"insert into users(Name, Email, Password) values('{user.Name}', '{user.Email}', '{user.Password}');";
-                RunCommand(sql);
-            }
-            
         }
 
         private void RunCommand(string sql)

@@ -5,12 +5,14 @@ namespace bacit_dotnet.MVC.Models.Users
 {
     public class UserViewModel
     {
-        
-        public string? Name { get; set; }
-        public string? Email { get; set; }
-        public string? Password { get; set; }
+        public string EmployeeNumber { get; set; }
+
+        public string Name { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
         public bool IsAdmin { get; set; }
-        public string? ValidadtionErrorMessage { get; set; } 
-        public List<UserEntity>? Users { get; set; }
+        public string ValididationErrorMessage { get; set; }
+
+        public List<UserEntity> Users { get; set; }
     }
 }
