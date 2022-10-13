@@ -5,55 +5,49 @@ using System.Data;
 
 namespace bacit_dotnet.MVC.Repositories
 {
-    public class SqlUserRepository : IUserRepository
+    public class SqlSuggestionRepository : ISuggestionRepository
     {
+
         private readonly ISqlConnector sqlConnector;
 
-        public SqlUserRepository(ISqlConnector sqlConnector)
+        public SqlSuggestionRepository(ISqlConnector sqlConnector)
         {
             this.sqlConnector = sqlConnector;
         }
-        public void Delete(string email)
-        {
-            var sql = $"delete from users where email = '{email}'";
-            RunCommand(sql);
-        }
 
-        public List<UserEntity> GetUsers()
+        public List<SuggestionEntity> GetSuggestions()
         {
             using (var connection = sqlConnector.GetDbConnection())
             {
-                var reader = ReadData("Select EmployeeNumber, Name, Email, Password, IsAdmin from users;", connection);
-                var users = new List<UserEntity>();
+                var reader = ReadData("Select",connection);
+                var suggestions = new List<SuggestionEntity>();
                 while (reader.Read())
                 {
-                    UserEntity user = MapUserFromReader(reader);
-                    users.Add(user);
+                    SuggestionEntity suggestion = MapUSuggestionFromReader(reader);
+                    suggestions.Add(suggestion);
                 }
                 connection.Close();
-                return users;
+                return suggestions;
 
             }
         }
 
-        private static UserEntity MapUserFromReader(IDataReader reader)
+        private static SuggestionEntity MapUSuggestionFromReader(IDataReader reader)
         {
-            var user = new UserEntity();
-            user.EmployeeNumber = reader.GetString(0);
-            user.Name = reader.GetString(1);
-            user.Email = reader.GetString(2);
-            user.Password = reader.GetString(3);
-            user.IsAdmin = reader.GetBoolean(4);
-            return user;
+            var suggestions = new SuggestionEntity();
+            suggestions.Title = reader.GetString(0);
+            return suggestions;
         }
 
-        public void Add(UserEntity user)
+        public void AddSuggestion(SuggestionEntity suggestion)
         {
-
-                var sql = $"insert into users(EmployeeNumber,Name, Email, Password ) values('{user.EmployeeNumber}','{user.Name}', '{user.Email}', '{user.Password}');";
-                RunCommand(sql);
+            //SuggestionEntity existingSuggestion = GetSuggestions(suggestion.)
         }
-
+        public void Delete(string email)
+        {
+            
+           Console.WriteLine("Work In Progress");
+        }
         private void RunCommand(string sql)
         {
             using (var connection = sqlConnector.GetDbConnection())

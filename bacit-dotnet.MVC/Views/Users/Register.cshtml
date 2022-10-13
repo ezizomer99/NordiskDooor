@@ -1,0 +1,20 @@
+﻿
+@using bacit_dotnet.MVC.Models.Users
+@model UserViewModel
+
+<form asp-action="AddUser" asp-controller="Users" method="post">
+
+    <label for="EmployeeNumber">Ansatt Nummer</label>
+    <input type="text" name="EmployeeNumber"value="@Model.EmployeeNumber" />
+
+    <label for="Name">Name</label>
+    <input type="text" name="Name" value="@Model.Name"/>
+
+    <label for="Email">Epost</label>
+    <input type="text" name="Email"  value="@Model.Email" />
+
+    <label for="Password">Passord</label>
+    <input type="password" name="Password" valeu="@Model.Password"/>
+
+    <input type="submit" value="Lagre"/>
+</form>

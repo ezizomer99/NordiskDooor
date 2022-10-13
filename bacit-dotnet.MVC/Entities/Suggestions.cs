@@ -1,13 +1,10 @@
-﻿using bacit_dotnet.MVC.Entities;
-using Google.Protobuf.WellKnownTypes;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace bacit_dotnet.MVC.Models.Suggestions
+namespace bacit_dotnet.MVC.Entities
 {
-    public class SuggestionViewModel
+    [Table("suggestions")]
+    public class SuggestionEntity
     {
-        [Required]
-        [MinLength(7, ErrorMessage ="Skriv en ordentlig tittel!")]
         public string Title { get; set; }
         public string Category { get; set; }
         public string Team { get; set; }
@@ -16,6 +13,5 @@ namespace bacit_dotnet.MVC.Models.Suggestions
         public string Status { get; set; }
         public string TimeStamp { get; set; }
         public string Deadline { get; set; }
-        public List<SuggestionViewModel>? Suggestions { get; set; }
     }
 }

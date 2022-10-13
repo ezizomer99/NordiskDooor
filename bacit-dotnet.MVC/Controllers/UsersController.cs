@@ -26,29 +26,26 @@ namespace bacit_dotnet.MVC.Controllers
                     model.EmployeeNumber = currentUser.EmployeeNumber;
                     model.Email = currentUser.Email;
                     model.Name = currentUser.Name;
-                    model.Role = currentUser.Role;
+                    model.IsAdmin = currentUser.IsAdmin;
                     model.Password = currentUser.Password;
-                    model.Team = currentUser.Team;
                 }
             }
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Save(UserViewModel model)
+        public IActionResult AddUser(UserViewModel model)
         {
 
             UserEntity newUser = new UserEntity
             {
+                EmployeeNumber = model.EmployeeNumber,
                 Name = model.Name,
                 Email = model.Email,
-                EmployeeNumber = model.EmployeeNumber,
                 Password = model.Password,
-                Role = model.Role,
-                Team = model.Team,
             };
-            userRepository.Save(newUser);
-            return RedirectToAction("Index");
+            userRepository.Add(newUser);
+            return RedirectToAction("Index","Users");
         }
 
         [HttpPost]
@@ -57,5 +54,12 @@ namespace bacit_dotnet.MVC.Controllers
             userRepository.Delete(email);
             return RedirectToAction("Index");
         }
+        
+        public IActionResult Register()
+        {
+            var model = new UserViewModel();
+            return View(model);           
+        }
+
     }
 }
