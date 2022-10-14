@@ -8,6 +8,8 @@ namespace bacit_dotnet.MVC.Models.Suggestions
     {
         [Required]
         [MinLength(7, ErrorMessage ="Skriv en ordentlig tittel!")]
+        public int SuggestionID { get; set; }
+        public string SuggestionMakerID { get; set; }
         public string Title { get; set; }
         public string Category { get; set; }
         public string Team { get; set; }
@@ -16,6 +18,6 @@ namespace bacit_dotnet.MVC.Models.Suggestions
         public string Status { get; set; }
         public string TimeStamp { get; set; }
         public string Deadline { get; set; }
-        public List<SuggestionViewModel>? Suggestions { get; set; }
+        public List<SuggestionEntity>? Suggestions { get; set; }
     }
 }

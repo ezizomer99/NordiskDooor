@@ -5,6 +5,8 @@ namespace bacit_dotnet.MVC.Entities
     [Table("suggestions")]
     public class SuggestionEntity
     {
+        public int SuggestionID { get; set; }
+        public string SuggestionMakerID { get; set; }
         public string Title { get; set; }
         public string Category { get; set; }
         public string Team { get; set; }

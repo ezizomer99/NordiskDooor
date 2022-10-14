@@ -19,7 +19,7 @@ namespace bacit_dotnet.MVC.Repositories
         {
             using (var connection = sqlConnector.GetDbConnection())
             {
-                var reader = ReadData("Select",connection);
+                var reader = ReadData("Select * from suggestions",connection);
                 var suggestions = new List<SuggestionEntity>();
                 while (reader.Read())
                 {
@@ -34,14 +34,25 @@ namespace bacit_dotnet.MVC.Repositories
 
         private static SuggestionEntity MapUSuggestionFromReader(IDataReader reader)
         {
-            var suggestions = new SuggestionEntity();
-            suggestions.Title = reader.GetString(0);
-            return suggestions;
+            var suggestion = new SuggestionEntity();
+            suggestion.SuggestionID = reader.GetInt32(0);
+            suggestion.SuggestionMakerID = reader.GetString(1);
+            suggestion.Title = reader.GetString(2);
+            suggestion.Category = reader.GetString(3);
+            suggestion.Description = reader.GetString(4);
+            suggestion.Phase = reader.GetString(5);
+            suggestion.Status = reader.GetString(6);
+            suggestion.TimeStamp = reader.GetString(7);
+            suggestion.Deadline = reader.GetString(8);
+            return suggestion;
         }
 
         public void AddSuggestion(SuggestionEntity suggestion)
         {
             //SuggestionEntity existingSuggestion = GetSuggestions(suggestion.)
+
+            var sql = $"insert into suggestions(SuggestionMakerID, Title, Category, TeamID, Description, Phase, Status, Deadline) values('{suggestion.SuggestionMakerID}', '{suggestion.Title}', '{suggestion.Category}', '{suggestion.Team}', '{suggestion.Description}', '{suggestion.Phase}', '{suggestion.Status}', '{suggestion.Deadline}');";
+            RunCommand(sql);
         }
         public void Delete(string email)
         {

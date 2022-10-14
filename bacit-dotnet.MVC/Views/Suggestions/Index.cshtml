@@ -4,20 +4,36 @@
 
     <ul>
         <li>
-            <label for="Topic">Emne:</label><br />
-            <input type="text" name="Topic" placeholder="Emne" required />
+            <label for="Title">Tittel</label><br />
+            <input type="text" name="Title" placeholder="Tittel" required />
+        </li>
+        <li>
+            <label for="Category">Kategori:</label><br />
+            <input type="text" name="Topic" placeholder="Kategori" required />
         </li>
         <li>            
-            <label for="Suggestion">Forbedringsforslag:</label><br />
+            <label for="Description">Beskrivelse:</label><br />
             <input type="text" name="Suggestion" placeholder="Skriv inn forbedringsforlsag" required style="height:100px; width:300px;" />
         </li>
         <li>
-            <label for="Priorization">Prioritering:</label><br />
-            <select name="Prioritering" id="Priorization">
-                <option value="Lav">Lav</option>
-                <option value="Middels">Middels</option>
-                <option value="Høy">Høy</option>
+            <label for="Phase">Fase</label><br />
+            <select name="Fase" id="Phase">
+                <option value="Plan">Plan</option>
+                <option value="Do">Do</option>
+                <option value="Study">Study</option>
+                <option value="Act">Act</option>
             </select>
+        </li>
+        <li>
+            <label for="Status">Status</label><br />
+            <select name="Status" id="Status">
+                <option value="Default1">Default1</option>
+                <option value="Default2">Default2</option>
+                <option value="Default3">Default3</option>
+            </select>
+        </li>
+        <li>
+            <label>Opprettet</label>
         </li>
         <li>
             <input type="submit" value="Lagre" />
