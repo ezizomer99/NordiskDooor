@@ -1,26 +1,20 @@
-﻿<form action="/suggestions/save" method="post">
-
-    <h1>Skriv inn ditt forbedringsforslag:</h1>
-
-    <ul>
-        <li>
-            <label for="Topic">Emne:</label><br />
-            <input type="text" name="Topic" placeholder="Emne" required />
-        </li>
-        <li>            
-            <label for="Suggestion">Forbedringsforslag:</label><br />
-            <input type="text" name="Suggestion" placeholder="Skriv inn forbedringsforlsag" required style="height:100px; width:300px;" />
-        </li>
-        <li>
-            <label for="Priorization">Prioritering:</label><br />
-            <select name="Prioritering" id="Priorization">
-                <option value="Lav">Lav</option>
-                <option value="Middels">Middels</option>
-                <option value="Høy">Høy</option>
-            </select>
-        </li>
-        <li>
-            <input type="submit" value="Lagre" />
-        </li>
-    </ul>
-</form> 
+﻿@using bacit_dotnet.MVC.Models.Suggestions
+@model SuggestionViewModel
+<table>
+    <tbody>
+        @foreach (var suggestion in Model.Suggestions)
+        {
+            <tr>
+                <td>@suggestion.Title</td>
+                <td>@suggestion.SuggestionMakerID</td>
+                <td>@suggestion.Status</td>
+                <td>@suggestion.Category</td>
+                <td>@suggestion.TimeStamp</td>
+                <td><a asp-action="Delete">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<form asp-action="create">
+    <input type="submit" value="Lag Forslag"/>
+</form>
