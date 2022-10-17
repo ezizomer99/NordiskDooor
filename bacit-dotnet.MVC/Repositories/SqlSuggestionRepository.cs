@@ -14,12 +14,12 @@ namespace bacit_dotnet.MVC.Repositories
         {
             this.sqlConnector = sqlConnector;
         }
-
+        //GetSuggestions gir sql query til readData og gir det den får til MapSuggestionFromReader og får tilbake enteties som blir lagt inn i i listen suggestions
         public List<SuggestionEntity> GetSuggestions()
         {
             using (var connection = sqlConnector.GetDbConnection())
             {
-                var reader = ReadData("Select * from suggestions",connection);
+                var reader = ReadData("Select SuggestionID, SuggestionMakerID, Title, Category, TeamID, Description, Phase, Status, TimeStamp, Deadline from suggestions;", connection);
                 var suggestions = new List<SuggestionEntity>();
                 while (reader.Read())
                 {
@@ -31,7 +31,7 @@ namespace bacit_dotnet.MVC.Repositories
 
             }
         }
-
+        //MapSuggestionFromReader tar og leser hver enkelt rad i tabelen suggestions og lager enteties ut ifra dem
         private static SuggestionEntity MapUSuggestionFromReader(IDataReader reader)
         {
             var suggestion = new SuggestionEntity();
@@ -39,26 +39,26 @@ namespace bacit_dotnet.MVC.Repositories
             suggestion.SuggestionMakerID = reader.GetString(1);
             suggestion.Title = reader.GetString(2);
             suggestion.Category = reader.GetString(3);
-            suggestion.Description = reader.GetString(4);
-            suggestion.Phase = reader.GetString(5);
-            suggestion.Status = reader.GetString(6);
-            suggestion.TimeStamp = reader.GetString(7);
-            suggestion.Deadline = reader.GetString(8);
+            suggestion.Team = reader.GetString(4);
+            suggestion.Description = reader.GetString(5);
+            suggestion.Phase = reader.GetString(6);
+            suggestion.Status = reader.GetString(7);
+            suggestion.TimeStamp = reader.GetDateTime(8);
+            suggestion.Deadline = reader.GetString(9);
             return suggestion;
         }
 
         public void AddSuggestion(SuggestionEntity suggestion)
         {
-            //SuggestionEntity existingSuggestion = GetSuggestions(suggestion.)
-
             var sql = $"insert into suggestions(SuggestionMakerID, Title, Category, TeamID, Description, Phase, Status, Deadline) values('{suggestion.SuggestionMakerID}', '{suggestion.Title}', '{suggestion.Category}', '{suggestion.Team}', '{suggestion.Description}', '{suggestion.Phase}', '{suggestion.Status}', '{suggestion.Deadline}');";
             RunCommand(sql);
         }
-        public void Delete(string email)
+        public void Delete()
         {
-            
-           Console.WriteLine("Work In Progress");
+
+            Console.WriteLine("Work In Progress");
         }
+        //runcommand får en string og sender stringen til databasen 
         private void RunCommand(string sql)
         {
             using (var connection = sqlConnector.GetDbConnection())
@@ -70,10 +70,10 @@ namespace bacit_dotnet.MVC.Repositories
                 connection.Close();
             }
         }
-
+        //readData leser 
         private IDataReader ReadData(string query, IDbConnection connection)
         {
-            connection.Open();
+            connection.Open(); //This as far as it goes, klarer ikke å åpne connection
             using var command = connection.CreateCommand();
             command.CommandType = System.Data.CommandType.Text;
             command.CommandText = query;

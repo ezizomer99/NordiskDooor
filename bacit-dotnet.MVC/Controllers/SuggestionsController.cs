@@ -13,11 +13,16 @@ namespace bacit_dotnet.MVC.Controllers
         {
             this.suggestionRepository = suggestionRepository;
         }
-        [HttpGet]
-        public IActionResult Index(string? SuggestionID)
+        
+        public IActionResult Index()
         {
             var model = new SuggestionViewModel();
             model.Suggestions = suggestionRepository.GetSuggestions();
+            return View(model);
+        }
+        public IActionResult Create()
+        {
+            var model = new SuggestionViewModel();
             return View(model);
         }
 
@@ -41,5 +46,6 @@ namespace bacit_dotnet.MVC.Controllers
             suggestionRepository.AddSuggestion(newSuggestion);
             return RedirectToAction("Index", "Suggestions");
         }
+
     }
 }

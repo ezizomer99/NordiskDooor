@@ -13,7 +13,7 @@ namespace bacit_dotnet.MVC.Entities
         public string Description { get; set; }
         public string Phase { get; set; }
         public string Status { get; set; }
-        public string TimeStamp { get; set; }
+        public DateTime TimeStamp { get; set; }
         public string Deadline { get; set; }
     }
 }

@@ -1,42 +1,20 @@
-﻿<form action="/suggestions/save" method="post">
-
-    <h1>Skriv inn ditt forbedringsforslag:</h1>
-
-    <ul>
-        <li>
-            <label for="Title">Tittel</label><br />
-            <input type="text" name="Title" placeholder="Tittel" required />
-        </li>
-        <li>
-            <label for="Category">Kategori:</label><br />
-            <input type="text" name="Topic" placeholder="Kategori" required />
-        </li>
-        <li>            
-            <label for="Description">Beskrivelse:</label><br />
-            <input type="text" name="Suggestion" placeholder="Skriv inn forbedringsforlsag" required style="height:100px; width:300px;" />
-        </li>
-        <li>
-            <label for="Phase">Fase</label><br />
-            <select name="Fase" id="Phase">
-                <option value="Plan">Plan</option>
-                <option value="Do">Do</option>
-                <option value="Study">Study</option>
-                <option value="Act">Act</option>
-            </select>
-        </li>
-        <li>
-            <label for="Status">Status</label><br />
-            <select name="Status" id="Status">
-                <option value="Default1">Default1</option>
-                <option value="Default2">Default2</option>
-                <option value="Default3">Default3</option>
-            </select>
-        </li>
-        <li>
-            <label>Opprettet</label>
-        </li>
-        <li>
-            <input type="submit" value="Lagre" />
-        </li>
-    </ul>
-</form> 
+﻿@using bacit_dotnet.MVC.Models.Suggestions
+@model SuggestionViewModel
+<table>
+    <tbody>
+        @foreach (var suggestion in Model.Suggestions)
+        {
+            <tr>
+                <td>@suggestion.Title</td>
+                <td>@suggestion.SuggestionMakerID</td>
+                <td>@suggestion.Status</td>
+                <td>@suggestion.Category</td>
+                <td>@suggestion.TimeStamp</td>
+                <td><a asp-action="Delete">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<form asp-action="create">
+    <input type="submit" value="Lag Forslag"/>
+</form>
