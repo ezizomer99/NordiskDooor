@@ -2,6 +2,7 @@
 using bacit_dotnet.MVC.Models.Suggestions;
 using bacit_dotnet.MVC.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace bacit_dotnet.MVC.Controllers
 {
@@ -47,5 +48,22 @@ namespace bacit_dotnet.MVC.Controllers
             return RedirectToAction("Index", "Suggestions");
         }
 
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var suggestion = suggestionRepository.GetSuggestions()
+                .FirstOrDefault(m => m.SuggestionID == id); //returns the first value of multiple elemnts that meets the requirements
+            if (suggestion == null)
+            {
+                return NotFound();
+            }
+
+            return View(suggestion);
+        }
     }
 }
