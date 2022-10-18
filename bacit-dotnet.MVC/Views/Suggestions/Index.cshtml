@@ -10,7 +10,8 @@
                 <td>@suggestion.Status</td>
                 <td>@suggestion.Category</td>
                 <td>@suggestion.TimeStamp</td>
-                <td><a asp-action="Delete">Delete</a></td>
+                <td><a asp-action="Details" asp-route-id="@suggestion.SuggestionID">Details</a></td>
+               
             </tr>
         }
     </tbody>
