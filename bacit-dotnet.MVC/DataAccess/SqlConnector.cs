@@ -1,5 +1,4 @@
-﻿using bacit_dotnet.MVC.Entities;
-using MySqlConnector;
+﻿using MySqlConnector;
 using System.Data;
 using System.Data.Common;
 

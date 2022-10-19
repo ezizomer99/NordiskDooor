@@ -1,6 +1,6 @@
 ﻿
 @using bacit_dotnet.MVC.Models.Users
-@model UserViewModel
+@model UserEntity
 
 <form asp-action="AddUser" asp-controller="Users" method="post">
 
@@ -14,7 +14,7 @@
     <input type="text" name="Email"   />
 
     <label for="Password">Passord</label>
-    <input type="password" name="Password"/>
+    <input type="password" name="Password" />
 
     <input type="submit" value="Lagre"/>
 </form>
