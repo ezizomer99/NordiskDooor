@@ -1,8 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿
 
-namespace bacit_dotnet.MVC.Entities
+namespace bacit_dotnet.MVC.Models.Users
 {
-    [Table("Users")]
     public class UserEntity
     {
         public string EmployeeNumber { get; set; }

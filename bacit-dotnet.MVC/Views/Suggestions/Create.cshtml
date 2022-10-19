@@ -1,5 +1,5 @@
 ﻿@using bacit_dotnet.MVC.Models.Suggestions
-@model SuggestionViewModel
+@model SuggestionEntity
 
 <form asp-action="addSuggestion" method="post">
 
@@ -12,7 +12,7 @@
         </li>
         <li>
             <label for="Team">Avdeling:</label><br />
-            <select name="Avdeling" id="Team">
+            <select name="Team" >
                 <option value="Sales and Market">Salg og Marked</option>
                 <option value="Production">Produksjon</option>
                 <option value="Technical">Teknisk</option>
@@ -25,7 +25,7 @@
         </li>
         <li>
             <label for="Category">Kategori:</label><br />
-            <select name="Categori" id="Category">
+            <select name="Category" >
                 <option value="Jadajada">Jadajada</option>
                 <option value="NeidaNeida">Neidaneida</option>
                 <option value="OkOk">OkOk</option>
@@ -38,12 +38,12 @@
         </li>
         <li>
             <label for="Status">Status:</label><br />
-            <input name="satus" type="text">
+            <input name="Status" type="text">
             <br /><br />
         </li>
         <li>
             <label for="Phase">Fase:</label><br />
-            <select name="Phase" id="category">
+            <select name="Phase" >
                 <option value="Plan">Plan</option>
                 <option value="Do">Do</option>
                 <option value="Study">Study</option>

@@ -1,10 +1,9 @@
-﻿using bacit_dotnet.MVC.Entities;
+﻿
 
 namespace bacit_dotnet.MVC.Models.Suggestions
 {
-    public class SuggestionViewModel
+    public class SuggestionEntity
     {
-       
         public int SuggestionID { get; set; }
         public string SuggestionMakerID { get; set; }
         public string Title { get; set; }
@@ -15,6 +14,5 @@ namespace bacit_dotnet.MVC.Models.Suggestions
         public string Status { get; set; }
         public DateTime TimeStamp { get; set; }
         public string Deadline { get; set; }
-        public List<SuggestionEntity> Suggestions { get; set; }
     }
 }
