@@ -1,5 +1,4 @@
-﻿using bacit_dotnet.MVC.Entities;
-using bacit_dotnet.MVC.Models.Users;
+﻿using bacit_dotnet.MVC.Models.Users;
 using bacit_dotnet.MVC.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,37 +13,17 @@ namespace bacit_dotnet.MVC.Controllers
             this.userRepository = userRepository;
         }
         [HttpGet]
-        public IActionResult Index(string? email)
+        public IActionResult Index()
         {
-            var model = new UserViewModel();
+            var model = new UserList();
             model.Users = userRepository.GetUsers();
-            if (email != null)
-            {
-                var currentUser = model.Users.FirstOrDefault(x => x.Email == email);
-                if (currentUser != null)
-                {
-                    model.EmployeeNumber = currentUser.EmployeeNumber;
-                    model.Email = currentUser.Email;
-                    model.Name = currentUser.Name;
-                    model.IsAdmin = currentUser.IsAdmin;
-                    model.Password = currentUser.Password;
-                }
-            }
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult AddUser(UserViewModel model)
+        public IActionResult AddUser(UserEntity model)
         {
-
-            UserEntity newUser = new UserEntity
-            {
-                EmployeeNumber = model.EmployeeNumber,
-                Name = model.Name,
-                Email = model.Email,
-                Password = model.Password,
-            };
-            userRepository.Add(newUser);
+            userRepository.Add(model);
             return RedirectToAction("Index","Users");
         }
 
@@ -57,7 +36,7 @@ namespace bacit_dotnet.MVC.Controllers
         
         public IActionResult Register()
         {
-            var model = new UserViewModel();
+            var model = new UserEntity();
             return View(model);           
         }
 

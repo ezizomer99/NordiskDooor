@@ -16,7 +16,7 @@ insert into users(EmployeeNumber, Name, Email, Password) values ('1237','Mr Taka
 
 create table if not EXISTS suggestions
 (
-    PostID int NOT NULL,
+    SuggestionID int auto_increment NOT NULL,
     SuggestionMakerID varchar(20) NOT NULL,
     Title varchar(100) NOT NULL,
     Category varchar(50) NOT NULL,
@@ -24,11 +24,12 @@ create table if not EXISTS suggestions
     Description varchar(255) NOT NULL,
     Phase varchar(20) NOT NULL,
     Status varchar(50) NOT NULL,
-    TimeStamp varchar(100) NOT NULL,
+    TimeStamp timestamp NOT NULL,
     Deadline varchar(50) NOT NULL,
-    PRIMARY KEY (PostID),
+    PRIMARY KEY (SuggestionID),
     FOREIGN KEY (SuggestionMakerID) REFERENCES users(EmployeeNumber)
 );
 
-insert into suggestions(PostID, SuggestionMakerID, Title, Category, TeamID, Description, Phase, Status, TimeStamp, Deadline) values ('69420', '1236', 'sølt sjokomelk', 'vaskehjelp', 'Logistikk', 'noen har sølt sjokomelk', 'ACT', 'In progress', '12:39', '10. Okt. 2022');
-    
+insert into suggestions(SuggestionID, SuggestionMakerID, Title, Category, TeamID, Description, Phase, Status, Deadline) values ('69420', '1236', 'sølt sjokomelk', 'vaskehjelp', 'Logistikk', 'noen har sølt sjokomelk', 'ACT', 'In progress', '10. Okt. 2022');
+
+insert into suggestions(SuggestionMakerID, Title, Category, TeamID, Description, Phase, Status, Deadline) values ('1236', 'sølt sjokomelk', 'vaskehjelp', 'Logistikk', 'noen har sølt sjokomelk', 'ACT', 'In progress', '10. Okt. 2022');

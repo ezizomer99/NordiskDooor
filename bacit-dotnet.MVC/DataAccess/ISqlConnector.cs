@@ -1,5 +1,4 @@
-﻿using bacit_dotnet.MVC.Entities;
-using System.Data;
+﻿using System.Data;
 
 namespace bacit_dotnet.MVC.DataAccess
 {
