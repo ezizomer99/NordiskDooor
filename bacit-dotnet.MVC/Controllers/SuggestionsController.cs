@@ -1,7 +1,6 @@
 ﻿using bacit_dotnet.MVC.Models.Suggestions;
 using bacit_dotnet.MVC.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace bacit_dotnet.MVC.Controllers
 {
@@ -25,15 +24,19 @@ namespace bacit_dotnet.MVC.Controllers
             var model = new SuggestionEntity();
             return View(model);
         }
-
+        [HttpPost]
+        public IActionResult Delete(int SuggestionID)
+        {
+            suggestionRepository.Delete(SuggestionID);
+            return RedirectToAction("index");
+        }
         [HttpPost]
         public IActionResult AddSuggestion(SuggestionEntity model)
         {
             suggestionRepository.AddSuggestion(model);
-            return RedirectToAction("Index", "Suggestions");
+            return RedirectToAction("Index", "Suggestions"); 
         }
-
-
+        
         public IActionResult Details(int? id)
         {
             if (id == null)
