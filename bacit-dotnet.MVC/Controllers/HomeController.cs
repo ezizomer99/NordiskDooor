@@ -10,11 +10,13 @@ namespace bacit_dotnet.MVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUserRepository userRepository;
+        private readonly ITeamRepository teamRepository;
 
-        public HomeController(ILogger<HomeController> logger, IUserRepository userRepository)
+        public HomeController(ILogger<HomeController> logger, IUserRepository userRepository, ITeamRepository teamRepository)
         {
             _logger = logger;
             this.userRepository = userRepository;
+            this.teamRepository = teamRepository;
         }
 
         [HttpGet]

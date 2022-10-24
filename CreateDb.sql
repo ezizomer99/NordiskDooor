@@ -33,3 +33,12 @@ create table if not EXISTS suggestions
 insert into suggestions(SuggestionID, SuggestionMakerID, Title, Category, TeamID, Description, Phase, Status, Deadline) values ('69420', '1236', 'sølt sjokomelk', 'vaskehjelp', 'Logistikk', 'noen har sølt sjokomelk', 'ACT', 'In progress', '10. Okt. 2022');
 
 insert into suggestions(SuggestionMakerID, Title, Category, TeamID, Description, Phase, Status, Deadline) values ('1236', 'sølt sjokomelk', 'vaskehjelp', 'Logistikk', 'noen har sølt sjokomelk', 'ACT', 'In progress', '10. Okt. 2022');
+
+create table if not EXISTS teams
+(
+    TeamID varchar(20) NOT NULL,
+    Team varchar(20)    NOT NULL
+);
+
+insert into teams(TeamID, Team) values ('TeamID', 'TeamNavn');
+insert into teams(TeamID, Team) values ('TeamID2', 'TeamNavn2');

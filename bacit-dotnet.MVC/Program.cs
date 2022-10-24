@@ -18,6 +18,7 @@ public class Program
 
         builder.Services.AddSingleton<IUserRepository, SqlUserRepository>();
         builder.Services.AddSingleton<ISuggestionRepository, SqlSuggestionRepository>();
+        builder.Services.AddSingleton<ITeamRepository, SqlTeamRepository>();
 
         var app = builder.Build();
          
