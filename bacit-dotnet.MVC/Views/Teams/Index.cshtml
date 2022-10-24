@@ -1,16 +1,22 @@
 ﻿@using bacit_dotnet.MVC.Models.Teams
 @model TeamList
 
-<table>
-    <tbody>
-        @foreach (var team in Model.Teams)
-        {
-            <tr>
-                <td>@team.TeamID</td>
-                <td>@team.Team</td>
-             
+@{
+    ViewBag.Title = "Index";
+}
+<div><b>Teams/Avdeling</b><br /></div>
+<table class="table table-bordered table-responsive table-hover">
+    <tr>
+        <th>TeamID </th>
+        <th>Team </th>
+        
+    </tr>
+    @foreach (var team in Model.Teams)
+    {
+        <tr>
+            <td>@team.TeamID</td>
+            <td>@team.Team</td>
 
-            </tr>
-        }
-    </tbody>
-</table>
+        </tr>
+    }
+</table>  
