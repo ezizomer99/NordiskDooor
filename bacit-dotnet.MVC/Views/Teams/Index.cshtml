@@ -1,6 +1,8 @@
 ﻿@using bacit_dotnet.MVC.Models.Teams
 @model TeamList
 
+
+
 @{
     ViewBag.Title = "Index";
 }
@@ -16,7 +18,15 @@
         <tr>
             <td>@team.TeamID</td>
             <td>@team.Team</td>
-
+            <td>
+                <form asp-action="delete" asp-controller="teams" method="post">
+                    <input type="hidden" name="Team" value="@team.Team" />
+                    <input type="submit" value="Slett" />
+                </form>
+            </td>
         </tr>
     }
-</table>  
+</table>
+<form asp-action="Register">
+    <input type="submit" value="Opprett Team" />
+</form>

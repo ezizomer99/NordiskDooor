@@ -28,9 +28,9 @@ namespace bacit_dotnet.MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(string TeamID)
+        public IActionResult Delete(string Team)
         {
-            teamRepository.Delete(TeamID);
+            teamRepository.Delete(Team);
             return RedirectToAction("Index");
         }
 
