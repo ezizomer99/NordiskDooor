@@ -53,10 +53,10 @@ namespace bacit_dotnet.MVC.Repositories
             var sql = $"insert into suggestions(SuggestionMakerID, Title, Category, TeamID, Description, Phase, Status, Deadline) values('{suggestion.SuggestionMakerID}', '{suggestion.Title}', '{suggestion.Category}', '{suggestion.Team}', '{suggestion.Description}', '{suggestion.Phase}', '{suggestion.Status}', '{suggestion.Deadline}');";
             RunCommand(sql);
         }
-        public void Delete()
+        public void Delete(int SuggestionID)
         {
-
-            Console.WriteLine("Work In Progress");
+        var sql = $" delete from suggestions where SuggestionID = '{SuggestionID}'";
+        RunCommand(sql);
         }
         //runcommand får en string og sender stringen til databasen 
         private void RunCommand(string sql)
