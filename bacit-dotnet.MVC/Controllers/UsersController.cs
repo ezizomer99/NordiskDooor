@@ -40,5 +40,24 @@ namespace bacit_dotnet.MVC.Controllers
             return View(model);           
         }
 
+        public IActionResult ProcessLogin(UserEntity userEntity)
+        {
+            var userList = new UserList();
+            userList.Users = userRepository.GetUsers();
+            if (userList.IsValidUser(userEntity))
+            {
+                return View("LoginSuccess", userEntity);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
     }
 }
