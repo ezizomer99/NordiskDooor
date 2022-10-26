@@ -1,4 +1,4 @@
-﻿using bacit_dotnet.MVC.Models.Suggestions;
+﻿ using bacit_dotnet.MVC.Models.Suggestions;
 using bacit_dotnet.MVC.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
