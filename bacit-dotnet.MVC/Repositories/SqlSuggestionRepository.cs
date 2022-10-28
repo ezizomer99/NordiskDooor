@@ -58,6 +58,11 @@ namespace bacit_dotnet.MVC.Repositories
         var sql = $" delete from suggestions where SuggestionID = '{SuggestionID}'";
         RunCommand(sql);
         }
+        public void Edit(int suggestion)
+        {
+            string sql = $" update suggestions ( Title, Category, TeamID, Description, Phase, Status, Deadline) values( '{suggestion.Title}', '{suggestion.Category}', '{suggestion.Team}', '{suggestion.Description}', '{suggestion.Phase}', '{suggestion.Status}', '{suggestion.Deadline}');";
+            RunCommand(sql);
+        }
         //runcommand får en string og sender stringen til databasen 
         private void RunCommand(string sql)
         {

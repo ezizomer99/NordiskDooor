@@ -25,22 +25,13 @@ namespace bacit_dotnet.MVC.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult Edit(int SuggestionId)
-        { 
-            
-            var sugg = SuggestionList.Where(s => s.SuggestionId == Id).FirstOrDefault();
-    
-            return View(sugg);
-        }
+       
 
         [HttpPost]
-        public ActionResult Edit(SuggestionEntity sugg)
+        public ActionResult Edit(int Suggestion)
         {
 
-            var suggestion = SuggestionList.Where(s => s.SuggestionId == sugg.SuggestionId).FirstOrDefault();
-            SuggestionList.Remove(suggestion);
-            SuggestionList.Add(sugg);
-
+            suggestionRepository.Edit(Suggestion);
             return RedirectToAction("Index");
         }
 
