@@ -10,5 +10,17 @@ namespace bacit_dotnet.MVC.Models.Users
         {
             return Users.Any(m => m.EmployeeNumber == user.EmployeeNumber && m.Password == user.Password);
         }
+
+        public UserEntity GetUser(string employeeNumber) //Vill oppstå problemer hvis Name er brukt istedenfor EmployeeNumber for å logge inn
+        {
+            foreach (UserEntity user in Users)
+            {
+                if (user.EmployeeNumber.Equals(employeeNumber)){
+                    return user;
+                }
+
+            }
+            return null;
+        }
     }
 }
