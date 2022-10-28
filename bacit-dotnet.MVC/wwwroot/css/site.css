@@ -17,3 +17,8 @@ body {
   margin-bottom: 60px;
   background-color: #cdd2d8;
 }
+
+form {
+    max-width: 400px;
+    text-align: center;
+}

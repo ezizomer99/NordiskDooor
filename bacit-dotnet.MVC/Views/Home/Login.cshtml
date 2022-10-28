@@ -5,12 +5,16 @@
     var returnUrl = ViewData["returnUrl"] as string;
     var error = TempData["error"] as string;
 }
-<h2>Log inn</h2>
-@if (!string.IsNullOrEmpty(error)){
-    <h2 class="alert-danger" >@error</h2>
-}
+<h2>Logg inn</h2>
+
 <form action="/login?ReturnUrl=@System.Net.WebUtility.UrlDecode(returnUrl)" method="post">
-    <input type="text" name="EmployeeNumber" placeholder="EmployeeNumber" />
-    <input type="password" name="Password" placeholder="Password" />
-    <input type="submit" value="log inn" />
+    <label for="EmployeeNumber">Ansatt Nummmer</label>
+    <input class="form-control" type="text" name="EmployeeNumber" placeholder="EmployeeNumber" /> <br />
+    <label for="Password">Passord</label>
+    <input class="form-control" type="password" name="Password" placeholder="Password" /><br />
+    <input type="submit" value="logg inn" />
 </form>
+@if (!string.IsNullOrEmpty(error))
+{
+    <h3 class="alert-danger">@error</h3>
+}
