@@ -57,7 +57,7 @@ namespace bacit_dotnet.MVC.Controllers
                 if (user.EmployeeNumber.Equals(employeeNumber) && user.Password.Equals(password))
                 {
                     var claims = new List<Claim>();
-                    claims.Add(new Claim("employeeNumber", user.Name));
+                    claims.Add(new Claim("employeeNumber", user.EmployeeNumber));
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, employeeNumber));
                     claims.Add(new Claim(ClaimTypes.Name, user.Name));
                     claims.Add(new Claim(ClaimTypes.Email, user.Email));

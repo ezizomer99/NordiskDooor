@@ -1,5 +1,6 @@
 ﻿ using bacit_dotnet.MVC.Models.Suggestions;
 using bacit_dotnet.MVC.Repositories;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,7 @@ namespace bacit_dotnet.MVC.Controllers
         [HttpPost]
         public IActionResult AddSuggestion(SuggestionEntity model)
         {
+            model.SuggestionMakerID = User.Identity.GetUserId();
             suggestionRepository.AddSuggestion(model);
             return RedirectToAction("Index", "Suggestions");
         }
