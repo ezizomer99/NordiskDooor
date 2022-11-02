@@ -1,9 +1,11 @@
 ﻿using bacit_dotnet.MVC.Models.Teams;
 using bacit_dotnet.MVC.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace bacit_dotnet.MVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class TeamsController : Controller
     {
         private readonly ITeamRepository teamRepository;
