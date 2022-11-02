@@ -19,7 +19,10 @@ namespace bacit_dotnet.MVC.Repositories
         {
             using (var connection = sqlConnector.GetDbConnection())
             {
-                var reader = ReadData("Select SuggestionID, SuggestionMakerID, Title, Category, TeamID, Description, Phase, Status, TimeStamp, Deadline from suggestions;", connection);
+                var reader = ReadData("select suggestionid, name, title,description,categoryname, teamname,phase,status,timestamp,deadline " +
+                    "from ((suggestions inner join users on suggestionmakerid=employeenumber) " +
+                    "inner join category on suggestions.categoryid = category.categoryid)" +
+                    " inner join teams on suggestions.teamid=teams.teamid;", connection);
                 var suggestions = new List<SuggestionEntity>();
                 while (reader.Read())
                 {
@@ -38,9 +41,9 @@ namespace bacit_dotnet.MVC.Repositories
             suggestion.SuggestionID = reader.GetInt32(0);
             suggestion.SuggestionMakerID = reader.GetString(1);
             suggestion.Title = reader.GetString(2);
-            suggestion.Category = reader.GetString(3);
-            suggestion.Team = reader.GetString(4);
-            suggestion.Description = reader.GetString(5);
+            suggestion.Description = reader.GetString(3);
+            suggestion.Category = reader.GetString(4);
+            suggestion.Team = reader.GetString(5);
             suggestion.Phase = reader.GetString(6);
             suggestion.Status = reader.GetString(7);
             suggestion.TimeStamp = reader.GetDateTime(8);
@@ -50,13 +53,15 @@ namespace bacit_dotnet.MVC.Repositories
 
         public void AddSuggestion(SuggestionEntity suggestion)
         {
-            var sql = $"insert into suggestions(SuggestionMakerID, Title, Category, TeamID, Description, Phase, Status, Deadline) values('{suggestion.SuggestionMakerID}', '{suggestion.Title}', '{suggestion.Category}', '{suggestion.Team}', '{suggestion.Description}', '{suggestion.Phase}', '{suggestion.Status}', '{suggestion.Deadline}');";
+            var sql = $"insert into suggestions(SuggestionMakerID, Title, CategoryID, TeamID, Description, Phase, Status, Deadline) values('{suggestion.SuggestionMakerID}', '{suggestion.Title}', '{suggestion.Category}', '{suggestion.Team}', '{suggestion.Description}', '{suggestion.Phase}', '{suggestion.Status}', '{suggestion.Deadline}');";
             RunCommand(sql);
         }
         public void Delete(int SuggestionID)
         {
-        var sql = $" delete from suggestions where SuggestionID = '{SuggestionID}'";
-        RunCommand(sql);
+            var sqlComment = $"delete from comments where SuggestionID = '{SuggestionID}'";
+            var sql = $" delete from suggestions where SuggestionID = '{SuggestionID}'";
+            RunCommand(sqlComment);
+            RunCommand(sql);
         }
         //runcommand får en string og sender stringen til databasen 
         private void RunCommand(string sql)
