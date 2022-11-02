@@ -13,10 +13,10 @@
         <li class="list-unstyled">
             <label for="Team">Avdeling:</label><br />
             <select class="form-control" name="Team">
-                <option value="1">Salg og Marked</option>
-                <option value="2">Produksjon</option>
-                <option value="3">Teknisk</option>
-                <option value="4">Logistikk</option>
+                @foreach (var team in Model.teamList)
+                {
+                    <option value="@team.TeamID">@team.TeamName</option>   
+                }
             </select> <br /><br />
         </li>
         <li class="list-unstyled">

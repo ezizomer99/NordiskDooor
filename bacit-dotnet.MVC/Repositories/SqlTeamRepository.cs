@@ -23,7 +23,7 @@ namespace bacit_dotnet.MVC.Repositories
         {
             using (var connection = sqlConnector.GetDbConnection())
             {
-                var reader = ReadData("Select TeamID, Team from teams;", connection);
+                var reader = ReadData("Select TeamID, TeamName from teams;", connection);
                 var teams = new List<TeamEntity>();
                 while (reader.Read())
                 {
@@ -39,15 +39,15 @@ namespace bacit_dotnet.MVC.Repositories
         private static TeamEntity MapTeamFromReader(IDataReader reader)
         {
             var team = new TeamEntity();
-            team.TeamID = reader.GetString(0);
-            team.Team = reader.GetString(1);
+            team.TeamID = reader.GetInt16(0);
+            team.TeamName = reader.GetString(1);
             return team;
         }
 
         public void Add(TeamEntity team)
         {
 
-            var sql = $"insert into teams(TeamID,Team) values('{team.TeamID}','{team.Team}');";
+            var sql = $"insert into teams(TeamID,TeamName) values('{team.TeamID}','{team.TeamName}');";
             RunCommand(sql);
         }
 

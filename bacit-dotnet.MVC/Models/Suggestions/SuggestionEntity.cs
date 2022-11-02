@@ -1,5 +1,7 @@
 ﻿
 
+using bacit_dotnet.MVC.Models.Teams;
+
 namespace bacit_dotnet.MVC.Models.Suggestions
 {
     public class SuggestionEntity
@@ -14,5 +16,7 @@ namespace bacit_dotnet.MVC.Models.Suggestions
         public string Status { get; set; }
         public DateTime TimeStamp { get; set; }
         public string Deadline { get; set; }
+
+        public List<TeamEntity> teamList { get; set; }
     }
 }

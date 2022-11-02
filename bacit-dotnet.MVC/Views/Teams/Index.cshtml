@@ -17,10 +17,10 @@
     {
         <tr>
             <td>@team.TeamID</td>
-            <td>@team.Team</td>
+            <td>@team.TeamName</td>
             <td>
                 <form asp-action="delete" asp-controller="teams" method="post">
-                    <input type="hidden" name="Team" value="@team.Team" />
+                    <input type="hidden" name="Team" value="@team.TeamName" />
                     <input type="submit" value="Slett" />
                 </form>
             </td>
