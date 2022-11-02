@@ -12,71 +12,59 @@
     <div class="container text-center">
         <dl class="row">
             <div class="row">
-                <dt class="col">
-                    <h10>Emne</h10>
-                </dt>
+
                 <dd class="col">
+                    <h10><b>Emne</b></h10>
                     <div class="form-control">@Html.DisplayFor(model => model.Title)</div>
                 </dd>
 
-                <dt class="col">
-                    <h10>Forslag skrevet av:</h10>
-                </dt>
                 <dd class="col">
+                    <h10><b>Forslag skrevet av:</b></h10>
                     <div class="form-control">@Html.DisplayFor(model => model.SuggestionMakerID)</div>
                 </dd>
             </div>
 
             <div class="row">
-                <dt class="col">
-                    <h10>Kategori</h10>
-                </dt>
                 <dd class="col">
+                    <h10><b>Kategori</b></h10>
                     <div class="form-control">@Html.DisplayFor(model => model.Category)</div>
                 </dd>
 
-                <dt class="col">
-                    <h10>Avdeling</h10>
-                </dt>
                 <dd class="col">
+                    <h10><b>Avdeling</b></h10>
                     <div class="form-control">@Html.DisplayFor(model => model.Team)</div>
                 </dd>
             </div>
 
             <div class="row">
-                <dt class="col">
-                    <h10>Status</h10>
-                </dt>
-                <dd class="col">
-                    <div class="form-control">@Html.DisplayFor(model => model.Status)</div>
-                </dd>
+                    <dd class="col">
+                    <h10><b>Status</b></h10>
 
-                <dt class="col">
-                    <h10>Fase</h10>
-                </dt>
-                <dd class="col">
-                    <div class="form-control">@Html.DisplayFor(model => model.Phase)</div>
+                        <div class="form-control">@Html.DisplayFor(model => model.Status)</div>
+                    </dd>
+
+                    <dd class="col">
+                    <h10><b>Fase</b></h10>
+                        <div class="form-control">@Html.DisplayFor(model => model.Phase)</div>
                 </dd>
             </div>
 
             <div class="row">
-                    <dt class="col">
-                        <h10>Tidsstempel</h10>
-                         <br /> 
-                        <div class="form-control">@Html.DisplayFor(model => model.TimeStamp)</div>
-                    </dt>
-
-                    <dt class="col">
-                        <h10>Frist</h10>
-                    </dt>
                     <dd class="col">
+                    <h10><b>Tidsstempel</b></h10>
+
+                        <div class="form-control">@Html.DisplayFor(model => model.TimeStamp)</div>
+                    </dd>
+
+                    <dd class="col">
+                    <h10><b>Frist</b></h10>
                         <div class="form-control">@Html.DisplayFor(model => model.Deadline)</div>
                     </dd>
             </div>
 
             <div>
                 <dt class="col">
-                    <h10>Beskrivelse</h10>
+                    <h10><b>Beskrivelse</b></h10>
                 </dt>
 
                 <dd class="col">
