@@ -6,14 +6,18 @@
     var error = TempData["error"] as string;
 }
 <form action="/login?ReturnUrl=@System.Net.WebUtility.UrlDecode(returnUrl)" method="post">
-    <h2 style="text-align.center;">Logg inn</h2>
+    <h1>Logg inn</h1>
     <label for="EmployeeNumber">Ansatt Nummmer</label>
     <input class="form-control" type="text" name="EmployeeNumber" placeholder="EmployeeNumber" /> <br />
     <label for="Password">Passord</label>
     <input class="form-control" type="password" name="Password" placeholder="Password" /><br />
-    <input type="submit" value="logg inn" />
+    <input type="submit" value="logg inn" class="form-control btn btn-dark" />
     @if (!string.IsNullOrEmpty(error))
     {
         <h3 class="alert-danger">@error</h3>
     }
+</form>
+<br />
+<form asp-action="register" asp-controller="users">
+    <input type="submit" value="Gå til registrering" class="form-control btn btn-secondary"/>
 </form>

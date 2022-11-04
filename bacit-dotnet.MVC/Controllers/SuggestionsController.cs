@@ -10,10 +10,12 @@ namespace bacit_dotnet.MVC.Controllers
     public class SuggestionsController : Controller
     {
         private readonly ISuggestionRepository suggestionRepository;
+        private readonly ITeamRepository teamRepository;
 
-        public SuggestionsController(ISuggestionRepository suggestionRepository)
+        public SuggestionsController(ISuggestionRepository suggestionRepository, ITeamRepository teamRepository)
         {
             this.suggestionRepository = suggestionRepository;
+            this.teamRepository = teamRepository;
         }
         
         public IActionResult Index()
@@ -25,6 +27,7 @@ namespace bacit_dotnet.MVC.Controllers
         public IActionResult Create()
         {
             var model = new SuggestionEntity();
+            model.teamList = teamRepository.GetTeams();
             return View(model);
         }
         [HttpPost]

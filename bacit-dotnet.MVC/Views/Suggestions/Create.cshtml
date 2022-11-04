@@ -13,19 +13,19 @@
         <li class="list-unstyled">
             <label for="Team">Avdeling:</label><br />
             <select class="form-control" name="Team">
-                <option value="Sales and Market">Salg og Marked</option>
-                <option value="Production">Produksjon</option>
-                <option value="Technical">Teknisk</option>
-                <option value="Logistics">Logistikk</option>
+                @foreach (var team in Model.teamList)
+                {
+                    <option value="@team.TeamID">@team.TeamName</option>   
+                }
             </select> <br /><br />
         </li>
         <li class="list-unstyled">
             <label for="Category">Kategori:</label><br />
             <select class="form-control" name="Category">
-                <option value="Jadajada">Jadajada</option>
-                <option value="NeidaNeida">Neidaneida</option>
-                <option value="OkOk">OkOk</option>
-                <option value="Blabla">BlaBla</option>
+                <option value="1">Jadajada</option>
+                <option value="2">Neidaneida</option>
+                <option value="3">OkOk</option>
+                <option value="4">BlaBla</option>
             </select> <br /><br />
         </li>
         <li class="list-unstyled">
@@ -34,8 +34,12 @@
         </li>
         <li class="list-unstyled">
             <label for="Status">Status:</label><br />
-            <input class="form-control" name="Status" type="text">
-            <br /><br />
+            <select class="form-control" name="Status">
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select> <br /><br />
         </li>
         <li class="list-unstyled">
             <label for="Phase">Fase:</label><br />

@@ -1,0 +1,9 @@
+﻿@using bacit_dotnet.MVC.Models.Teams
+@model TeamEntity
+
+<form asp-action="AddTeam" asp-controller="Teams" method="post">
+
+    <label for="TeamName">Team-Navn</label>
+    <input type="text" name="TeamName" />
+    <input type="submit" value="Lagre"/>
+</form>

@@ -21,6 +21,7 @@ public class Program
 
         builder.Services.AddSingleton<IUserRepository, SqlUserRepository>();
         builder.Services.AddSingleton<ISuggestionRepository, SqlSuggestionRepository>();
+        builder.Services.AddSingleton<ITeamRepository, SqlTeamRepository>();
 
         builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
