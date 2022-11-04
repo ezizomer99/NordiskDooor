@@ -20,8 +20,8 @@
             <td>@team.TeamName</td>
             <td>
                 <form asp-action="delete" asp-controller="teams" method="post">
-                    <input type="hidden" name="Team" value="@team.TeamName" />
-                    <input type="submit" value="Slett" />
+                    <input type="hidden" name="TeamId" value="@team.TeamID" />
+                    <input type="submit" value="Slett" class="btn btn-danger" />
                 </form>
             </td>
         </tr>

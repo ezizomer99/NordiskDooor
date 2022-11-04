@@ -13,9 +13,9 @@ namespace bacit_dotnet.MVC.Repositories
         {
             this.sqlConnector = sqlConnector;
         }
-        public void Delete(string Team)
+        public void Delete(int teamID)
         {
-            var sql = $"delete from teams where Team = '{Team}'";
+            var sql = $"delete from teams where TeamID = '{teamID}';";
             RunCommand(sql);
         }
 

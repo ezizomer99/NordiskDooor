@@ -6,6 +6,6 @@ namespace bacit_dotnet.MVC.Repositories
     {
         void Add(TeamEntity team);
         List<TeamEntity> GetTeams();
-        void Delete(string TeamID);
+        void Delete(int TeamID);
     }
 }
