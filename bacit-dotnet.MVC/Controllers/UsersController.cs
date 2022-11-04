@@ -1,5 +1,6 @@
 ﻿using bacit_dotnet.MVC.Models.Users;
 using bacit_dotnet.MVC.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -16,7 +17,8 @@ namespace bacit_dotnet.MVC.Controllers
             this.userRepository = userRepository;
             userList.Users = userRepository.GetUsers();
         }
-        [HttpGet]
+        
+        [Authorize(Roles ="Admin")]
         public IActionResult Index()
         {
             
@@ -27,7 +29,7 @@ namespace bacit_dotnet.MVC.Controllers
         public IActionResult AddUser(UserEntity model)
         {
             userRepository.Add(model);
-            return RedirectToAction("Index","Users");
+            return RedirectToAction("Index","suggestions");
         }
 
         [HttpPost]
