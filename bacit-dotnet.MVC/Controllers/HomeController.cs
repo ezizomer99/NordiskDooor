@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Diagnostics;
 using System.Security.Claims;
 
 namespace bacit_dotnet.MVC.Controllers
@@ -35,11 +33,6 @@ namespace bacit_dotnet.MVC.Controllers
             return View("Index", model);
         }
 
-        [Authorize]
-        public IActionResult Secured()
-        {
-            return View();
-        }
         [HttpGet("login")]
         public IActionResult login(string returnUrl)
         {

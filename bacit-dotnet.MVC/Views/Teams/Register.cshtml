@@ -1,9 +1,13 @@
 ﻿@using bacit_dotnet.MVC.Models.Teams
 @model TeamEntity
-
+<h1>Registrer nytt team</h1>
 <form asp-action="AddTeam" asp-controller="Teams" method="post">
-
-    <label for="TeamName">Team-Navn</label>
-    <input type="text" name="TeamName" />
-    <input type="submit" value="Lagre"/>
+    
+    <label for="TeamName">Team Navn</label>
+    <input class="form-control" type="text" name="TeamName" placeholder="Team navn"/><br />
+    <input class="form-control btn btn-dark" type="submit" value="Lagre"/>
+</form>
+<br />
+<form asp-action="Index">
+    <input type="submit" class="form-control btn btn-danger" value="Avbryt og gå tilbake" />
 </form>
