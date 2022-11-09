@@ -60,7 +60,11 @@ namespace bacit_dotnet.MVC.Controllers
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                     await HttpContext.SignInAsync(claimsPrincipal);
-                    return Redirect(returnUrl);
+                    if (returnUrl != null)
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    return RedirectToAction("Index", "Suggestions");
                 }
                 else
                 {
