@@ -1,5 +1,17 @@
 ﻿@using bacit_dotnet.MVC.Models.Suggestions
 @model SuggestionList
+
+@if (TempData["AlertMessage"] != null)
+{
+
+    <div class="alert alert-success">
+
+        <strong>Forbedringsforslaget ditt ble sendt inn! </strong> @TempData["Alertmessage"]
+
+    </div>
+    }
+    
+
 <table>
     <tbody>
         @foreach (var suggestion in Model.Suggestions)

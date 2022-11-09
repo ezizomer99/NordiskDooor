@@ -3,6 +3,7 @@ using bacit_dotnet.MVC.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Serialization;
 
 namespace bacit_dotnet.MVC.Controllers
 {
@@ -26,9 +27,22 @@ namespace bacit_dotnet.MVC.Controllers
         }
         public IActionResult Create()
         {
-            var model = new SuggestionEntity();
-            model.teamList = teamRepository.GetTeams();
-            return View(model);
+            if (ModelState.IsValid)
+            {
+                var model = new SuggestionEntity();
+                model.teamList = teamRepository.GetTeams();
+                TempData["AlertMessage"] = "Forbedringforlaget var velykket!";
+                
+                return View(model);
+            }
+            else
+            {
+                return View();
+            }
+        }
+        public IActionResult Back()
+        {   
+            return RedirectToAction("index", "Suggestions");
         }
         [HttpPost]
         public IActionResult Delete(int SuggestionID)

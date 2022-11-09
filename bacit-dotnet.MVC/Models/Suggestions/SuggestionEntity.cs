@@ -1,6 +1,7 @@
 ﻿
 
 using bacit_dotnet.MVC.Models.Teams;
+using System.ComponentModel.DataAnnotations;
 
 namespace bacit_dotnet.MVC.Models.Suggestions
 {

@@ -4,7 +4,7 @@
 <form asp-action="addSuggestion" method="post">
 
     <h1 style="text-align:Center">Skriv inn ditt forbedringsforslag:</h1>
-
+    
 
     <li class="list-unstyled">
             <label for="Title">Emne:</label><br />
@@ -40,7 +40,7 @@
                 <option value="Completed">Completed</option>
                 <option value="Cancelled">Cancelled</option>
             </select> <br /><br />
-        </li>
+    </li>
         <li class="list-unstyled">
             <label for="Phase">Fase:</label><br />
             <select class="form-control" name="Phase">
@@ -59,6 +59,6 @@
     
 </form>
 <br />
-<form asp-action="Index">
+<form asp-action="Back">
     <input type="submit" class="form-control btn btn-danger" value="Avbryt og gå tilbake" />
 </form>
