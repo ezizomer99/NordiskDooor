@@ -1,5 +1,6 @@
 ﻿using bacit_dotnet.MVC.DataAccess;
 using bacit_dotnet.MVC.Models.Suggestions;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MySqlConnector;
 using System.Data;
 
@@ -19,10 +20,7 @@ namespace bacit_dotnet.MVC.Repositories
         {
             using (var connection = sqlConnector.GetDbConnection())
             {
-                var reader = ReadData("select suggestionid, name, title,description,categoryname, teamname,phase,status,timestamp,deadline " +
-                    "from ((suggestions inner join users on suggestionmakerid=employeenumber) " +
-                    "inner join category on suggestions.categoryid = category.categoryid)" +
-                    " inner join teams on suggestions.teamid=teams.teamid;", connection);
+                var reader = ReadData("select suggestionid, name, title,description,categoryname, teamname,phase,status,timestamp,deadline  from ((suggestions inner join users on if(suggestionmakerid is null, '9999',suggestionmakerid)=employeenumber) inner join category on suggestions.categoryid = category.categoryid) inner join teams on suggestions.teamid=teams.teamid;", connection);
                 var suggestions = new List<SuggestionEntity>();
                 while (reader.Read())
                 {
@@ -31,7 +29,7 @@ namespace bacit_dotnet.MVC.Repositories
                 }
                 connection.Close();
                 return suggestions;
-
+                
             }
         }
         //MapSuggestionFromReader tar og leser hver enkelt rad i tabelen suggestions og lager enteties ut ifra dem
@@ -58,9 +56,7 @@ namespace bacit_dotnet.MVC.Repositories
         }
         public void Delete(int SuggestionID)
         {
-            var sqlComment = $"delete from comments where SuggestionID = '{SuggestionID}'";
             var sql = $" delete from suggestions where SuggestionID = '{SuggestionID}'";
-            RunCommand(sqlComment);
             RunCommand(sql);
         }
         //runcommand får en string og sender stringen til databasen 
@@ -78,7 +74,7 @@ namespace bacit_dotnet.MVC.Repositories
         //readData leser 
         private IDataReader ReadData(string query, IDbConnection connection)
         {
-            connection.Open(); //This as far as it goes, klarer ikke å åpne connection
+            connection.Open(); 
             using var command = connection.CreateCommand();
             command.CommandType = System.Data.CommandType.Text;
             command.CommandText = query;

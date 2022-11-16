@@ -12,25 +12,19 @@ namespace bacit_dotnet.MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IUserRepository userRepository;
         private UserList userList = new UserList();
 
-        public HomeController(ILogger<HomeController> logger, IUserRepository userRepository)
+        public HomeController( IUserRepository userRepository)
         {
-            _logger = logger;
+            
             this.userRepository = userRepository;
             userList.Users = userRepository.GetUsers();
         }
 
-        [HttpGet]
         public IActionResult Index()
         {
-            var model = new RazorViewModel
-            {
-                Content = "Nordic Door"
-            };
-            return View("Index", model);
+            return View("Index");
         }
 
         [HttpGet("login")]

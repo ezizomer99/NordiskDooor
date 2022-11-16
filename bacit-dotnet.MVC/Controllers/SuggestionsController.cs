@@ -39,9 +39,27 @@ namespace bacit_dotnet.MVC.Controllers
         [HttpPost]
         public IActionResult AddSuggestion(SuggestionEntity model)
         {
+            if (model.Title == null)
+            {
+                string error = "Du må ha tittel!";
+                TempData["Error"] = error;
+                return RedirectToAction("Create");
+            }
+            if (model.Deadline == null)
+            {
+                string error = "Du Glemte å velge dato for fristen for å gjennomføre!";
+                TempData["Error"] = error;
+                return RedirectToAction("Create");
+            }
+            if (model.Description == null)
+            {
+                string error = "Du må ha med beskrivelse!";
+                TempData["Error"] = error;
+                return RedirectToAction("Create");
+            }
             model.SuggestionMakerID = User.Identity.GetUserId();
             suggestionRepository.AddSuggestion(model);
-            return RedirectToAction("Index", "Suggestions"); 
+            return RedirectToAction("Index", "Suggestions");
         }
         
         public IActionResult Details(int? id)

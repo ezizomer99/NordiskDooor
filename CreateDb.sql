@@ -18,6 +18,7 @@ insert into users(EmployeeNumber, Name, Email, Password) values ('1240','Lance W
 insert into users(EmployeeNumber, Name, Email, Password) values ('1241','Mr Alucard', 'alucard@walachia.com','notDracula');
 insert into users(EmployeeNumber, Name, Email, Password) values ('1242','Karl Johan', 'karl@bernadotte.fr','NotAFrenchGuy');
 insert into users(EmployeeNumber, Name, Email, Password) values ('1243','Donald Duck', 'donald@duck.ab','giveMoney');
+insert into users(EmployeeNumber, Name, Email, Password) values ('9999','Deleted', 'THIS USER IS DELETED','MOCKUSERDONTUSE');
 
 create table if not EXISTS teams
 (
@@ -58,17 +59,17 @@ insert into category(CategoryID, CategoryName) values ('10','Individual');
 create table if not EXISTS suggestions
 (
     SuggestionID int auto_increment NOT NULL PRIMARY KEY,
-    SuggestionMakerID varchar(20) NOT NULL,
+    SuggestionMakerID varchar(20),
     CategoryID int NOT NULL,
-    TeamID int NOT NULL,
+    TeamID int,
     Title varchar(100) NOT NULL,
     Description varchar(255) NOT NULL,
     Phase varchar(20) NOT NULL,
     Status varchar(50) NOT NULL,
     TimeStamp timestamp NOT NULL,
     Deadline varchar(50) NOT NULL,
-    FOREIGN KEY (SuggestionMakerID) REFERENCES users(EmployeeNumber),
-    FOREIGN KEY (TeamID) REFERENCES teams(TeamID),
+    FOREIGN KEY (SuggestionMakerID) REFERENCES users(EmployeeNumber) on delete set null,
+    FOREIGN KEY (TeamID) REFERENCES teams(TeamID) on delete set null,
     FOREIGN KEY (CategoryID) REFERENCES category(CategoryID)
 );
 
@@ -96,13 +97,12 @@ insert into suggestions(SuggestionID, SuggestionMakerID, Title, CategoryID, Team
 
 create table if not EXISTS comments
 (
-    CommentID int auto_increment not null,
+    CommentID int PRIMARY KEY auto_increment not null,
     SuggestionID int not null,
-    EmployeeNumber varchar(20) not null,
+    EmployeeNumber varchar(20),
     CommentText varchar(100) not null,
-    PRIMARY KEY (CommentID),
-    FOREIGN KEY (SuggestionID) REFERENCES suggestions(SuggestionID),
-    FOREIGN KEY (EmployeeNumber) REFERENCES users(EmployeeNumber)
+    FOREIGN KEY (EmployeeNumber) REFERENCES users(EmployeeNumber) on delete set null,
+    FOREIGN KEY (SuggestionID) REFERENCES suggestions(SuggestionID) on delete cascade
 );
 
 insert into comments(commentID,SuggestionID,EmployeeNumber,CommentText)

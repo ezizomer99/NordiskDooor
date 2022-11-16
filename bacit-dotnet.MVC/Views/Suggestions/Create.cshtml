@@ -1,10 +1,17 @@
 ﻿@using bacit_dotnet.MVC.Models.Suggestions
 @model SuggestionEntity
+@{
+    var error = TempData["Error"] as string;
+}
 
 <form asp-action="addSuggestion" method="post">
 
-    <h1 style="text-align:Center">Skriv inn ditt forbedringsforslag:</h1>
 
+    <h1 style="text-align:Center">Skriv inn ditt forbedringsforslag:</h1>
+    @if (error != null)
+    {
+        <h5 style="text-align:center;" class="alert-danger"> @error </h5>
+    }
 
     <li class="list-unstyled">
             <label for="Title">Emne:</label><br />
