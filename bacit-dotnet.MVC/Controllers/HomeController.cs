@@ -2,6 +2,7 @@
 using bacit_dotnet.MVC.Models;
 using bacit_dotnet.MVC.Models.Users;
 using bacit_dotnet.MVC.Repositories;
+using bacit_dotnet.MVC.Security;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -41,7 +42,7 @@ namespace bacit_dotnet.MVC.Controllers
             if (!(user == null)) //if user = null vil ikke neste if setning kunne fullføres derfor er denne her 
             {
                 ViewData["returnUrl"] = returnUrl;
-                if (user.EmployeeNumber.Equals(employeeNumber) && user.Password.Equals(password))
+                if (user.EmployeeNumber.Equals(employeeNumber) && user.Password.Equals(EncryptString.Encrypt(password)))
                 {
                     var claims = new List<Claim>();
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, employeeNumber));
