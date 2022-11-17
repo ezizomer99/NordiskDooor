@@ -44,6 +44,7 @@ namespace bacit_dotnet.MVC.Controllers
                 var currentSuggestion = suggestionRepository.GetSuggestions().FirstOrDefault(x => x.SuggestionID == SuggestionID);
                 if (currentSuggestion != null)
                 {
+                    model.SuggestionID = currentSuggestion.SuggestionID;
                     model.SuggestionMakerID = currentSuggestion.SuggestionMakerID;
                     model.Title = currentSuggestion.Title;
                     model.Category = currentSuggestion.Category;
@@ -58,11 +59,12 @@ namespace bacit_dotnet.MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(SuggestionEntity model)
+        public IActionResult Save(SuggestionEntity model)
         {
 
             SuggestionEntity newSuggestion = new()
             {
+                
                 SuggestionMakerID = model.SuggestionMakerID,
                 Title = model.Title,
                 Category = model.Category,
@@ -72,9 +74,9 @@ namespace bacit_dotnet.MVC.Controllers
                 Status = model.Status,
                 Deadline = model.Deadline,
             };
-            
 
-            return RedirectToAction("Edit");
+            suggestionRepository.Edit(model);
+            return RedirectToAction("Index");
         }
         public IActionResult Delete(int SuggestionID)
         {

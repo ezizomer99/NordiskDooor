@@ -1,42 +1,60 @@
 ﻿@using bacit_dotnet.MVC.Models.Suggestions
 @model SuggestionEntity
 <h3>Rediger registrerte suggestions</h3>
-{
-    <form asp-action="Edit" asp-controller="Edit" method="post">
-        <ul>
-            <li>
-            <label for="Title">Navn</label>
-            <input type="text" name="Title" value="@Model.Title" />
-            </li>
-            <li>
-            <label for="Category">Passord</label>
-            <input type="Category" name="Category" value="@Model.Category" />
-            </li>
-            <li>
-            <label for="Team">Email</label>
-            <input type="Team" name="Email" value="@Model.Team" />
-            </li>
-            <li>
-            <label for="Description">Ansattnummer</label>
-            <input type="text" name="Description" value="@Model.Description" />
-            </li>
-            <li>
-            <label for="Phase">Team</label>
-            <input type="text" name="Phase" value="@Model.Phase" />
-            </li>
-            <li>
-            <label for="Status">Role</label>
-            <input type="Text" name="Status" value="@Model.Status" />
-            </li>
-            <li>
-                <label for="Deadline">Role</label>
-                <input type="Text" name="Deadline" value="@Model.Deadline" />
-            </li>
-       
+<form asp-action="save" method="post">
 
-            <li>
-                <input type="submit" value="Lagre" />
-            </li>
-        </ul>
-    </form>
-}
+    <h1>Edit</h1>
+
+    <li class="list-unstyled">
+        <input class="form-control" type="hidden" name="Suggestionid" value="@Model.SuggestionID"><br /><br />
+    </li>
+    <li class="list-unstyled">
+        <label for="Title">Emne:</label><br />
+        <input class="form-control" type="text" name="Title" value="@Model.Title"><br /><br />
+    </li>
+    <li class="list-unstyled">
+        <label for="Team">Avdeling:</label><br />
+        <select class="form-control" name="Team">
+                <option value="1">Placeholder</option>
+
+        </select> <br /><br />
+    </li>
+    <li class="list-unstyled">
+        <label for="Category">Kategori:</label><br />
+        <select class="form-control" name="Category">
+            <option value="1">Jadajada</option>
+            <option value="2">Neidaneida</option>
+            <option value="3">OkOk</option>
+            <option value="4">BlaBla</option>
+        </select> <br /><br />
+    </li>
+    <li class="list-unstyled">
+        <label for="Deadline">Frist:</label><br />
+        <input class="form-control" type="date" name="Deadline" /> <br /><br />
+    </li>
+    <li class="list-unstyled">
+        <label for="Status">Status:</label><br />
+        <select class="form-control" name="Status">
+            <option value="Not Started">Not Started</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+        </select> <br /><br />
+    </li>
+    <li class="list-unstyled">
+        <label for="Phase">Fase:</label><br />
+        <select class="form-control" name="Phase">
+            <option value="Plan">Plan</option>
+            <option value="Do">Do</option>
+            <option value="Study">Study</option>
+            <option value="Act">Act</option>
+        </select> <br /><br />
+    <li class="list-unstyled">
+        <label for="Description">Forbedringsforslag:</label><br />
+        <textarea class="form-control" id="exampleFormControlTextarea1" name="Description" rows="3"></textarea>
+    </li> <br />
+    <li class="list-unstyled">
+        <input class="btn btn-dark form-control" type="submit" value="Lagre" />
+    </li>
+
+</form>

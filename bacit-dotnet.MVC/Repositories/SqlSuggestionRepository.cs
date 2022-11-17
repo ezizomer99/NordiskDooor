@@ -76,13 +76,12 @@ namespace bacit_dotnet.MVC.Repositories
             var sql = $@"update suggestions 
                                 set 
                                    Title = '{suggestion.Title}', 
-                                   Password='{suggestion.Category}',
-                                   EmployeeNumber = '{suggestion.Team}',
-                                   Team ='{suggestion.Description}', 
-                                   Role ='{suggestion.Phase}' 
-                                   Role ='{suggestion.Status}' 
-                                   Role ='{suggestion.Deadline}' 
-
+                                   Categoryid='{suggestion.Category}',
+                                   Teamid = '{suggestion.Team}',
+                                   Description ='{suggestion.Description}', 
+                                   Phase ='{suggestion.Phase}' ,
+                                   Status ='{suggestion.Status}' ,
+                                   Deadline ='{suggestion.Deadline}' 
                                 where suggestionID = '{suggestion.SuggestionID}';";
             RunCommand(sql);
         }
