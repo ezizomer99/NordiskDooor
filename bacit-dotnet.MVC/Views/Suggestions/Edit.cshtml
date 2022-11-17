@@ -1,0 +1,42 @@
+﻿@using bacit_dotnet.MVC.Models.Suggestions
+@model SuggestionEntity
+<h3>Rediger registrerte suggestions</h3>
+{
+    <form asp-action="Edit" asp-controller="Edit" method="post">
+        <ul>
+            <li>
+            <label for="Title">Navn</label>
+            <input type="text" name="Title" value="@Model.Title" />
+            </li>
+            <li>
+            <label for="Category">Passord</label>
+            <input type="Category" name="Category" value="@Model.Category" />
+            </li>
+            <li>
+            <label for="Team">Email</label>
+            <input type="Team" name="Email" value="@Model.Team" />
+            </li>
+            <li>
+            <label for="Description">Ansattnummer</label>
+            <input type="text" name="Description" value="@Model.Description" />
+            </li>
+            <li>
+            <label for="Phase">Team</label>
+            <input type="text" name="Phase" value="@Model.Phase" />
+            </li>
+            <li>
+            <label for="Status">Role</label>
+            <input type="Text" name="Status" value="@Model.Status" />
+            </li>
+            <li>
+                <label for="Deadline">Role</label>
+                <input type="Text" name="Deadline" value="@Model.Deadline" />
+            </li>
+       
+
+            <li>
+                <input type="submit" value="Lagre" />
+            </li>
+        </ul>
+    </form>
+}

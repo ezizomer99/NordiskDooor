@@ -1,7 +1,9 @@
 ﻿using bacit_dotnet.MVC.DataAccess;
 using bacit_dotnet.MVC.Models.Suggestions;
+using bacit_dotnet.MVC.Models.Users;
 using MySqlConnector;
 using System.Data;
+using System.Reflection;
 
 namespace bacit_dotnet.MVC.Repositories
 {
@@ -63,6 +65,28 @@ namespace bacit_dotnet.MVC.Repositories
             RunCommand(sqlComment);
             RunCommand(sql);
         }
+      
+        public void Edit(SuggestionEntity suggestion)
+        {
+           
+            if (suggestion == null)
+            {
+                throw new Exception("Suggestion does not exist");
+            }
+            var sql = $@"update suggestions 
+                                set 
+                                   Title = '{suggestion.Title}', 
+                                   Password='{suggestion.Category}',
+                                   EmployeeNumber = '{suggestion.Team}',
+                                   Team ='{suggestion.Description}', 
+                                   Role ='{suggestion.Phase}' 
+                                   Role ='{suggestion.Status}' 
+                                   Role ='{suggestion.Deadline}' 
+
+                                where suggestionID = '{suggestion.SuggestionID}';";
+            RunCommand(sql);
+        }
+
         //runcommand får en string og sender stringen til databasen 
         private void RunCommand(string sql)
         {
