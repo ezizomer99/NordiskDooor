@@ -48,6 +48,7 @@ namespace bacit_dotnet.MVC.Controllers
                     model.SuggestionMakerID = currentSuggestion.SuggestionMakerID;
                     model.Title = currentSuggestion.Title;
                     model.Category = currentSuggestion.Category;
+                    model.teamList = teamRepository.GetTeams();
                     model.Team = currentSuggestion.Team;
                     model.Description = currentSuggestion.Description;
                     model.Phase = currentSuggestion.Phase;
@@ -68,6 +69,7 @@ namespace bacit_dotnet.MVC.Controllers
                 SuggestionMakerID = model.SuggestionMakerID,
                 Title = model.Title,
                 Category = model.Category,
+                teamList = teamRepository.GetTeams(),
                 Team = model.Team,
                 Description = model.Description,
                 Phase = model.Phase,

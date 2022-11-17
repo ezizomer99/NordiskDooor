@@ -15,9 +15,12 @@
     <li class="list-unstyled">
         <label for="Team">Avdeling:</label><br />
         <select class="form-control" name="Team">
-                <option value="1">Placeholder</option>
-
+            @foreach (var team in Model.teamList)
+            {
+                <option value="@team.TeamID">@team.TeamName</option>
+            }
         </select> <br /><br />
+    </li>
     </li>
     <li class="list-unstyled">
         <label for="Category">Kategori:</label><br />
