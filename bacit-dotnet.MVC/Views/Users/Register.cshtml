@@ -2,19 +2,27 @@
 @using bacit_dotnet.MVC.Models.Users
 @model UserEntity
 
-<form asp-action="AddUser" asp-controller="Users" method="post">
+<form asp-action="AddUser" asp-controller="Users" method="post">  
+    <h1>Registrer bruker</h1><br />
 
-    <label for="EmployeeNumber">Ansatt Nummer</label>
-    <input type="text" name="EmployeeNumber" />
+    <label for="EmployeeNumber">Ansattnummer</label><br />
+    <input class="form-control" type="text" name="EmployeeNumber" required /><br />
 
-    <label for="Name">Name</label>
-    <input type="text" name="Name" />
+    <label for="Name">Navn</label><br />
+    <input class="form-control" type="text" name="Name" required /><br />
 
-    <label for="Email">Epost</label>
-    <input type="text" name="Email"   />
+    <label for="Email">E-post</label><br />
+    <input class="form-control" type="text" name="Email" required /><br />
 
-    <label for="Password">Passord</label>
-    <input type="password" name="Password" />
+    <label for="Password">Passord</label><br />
+    <input class="form-control" type="password" name="Password" required /><br />
 
-    <input type="submit" value="Lagre"/>
+    <label for="RepeatPassword">Gjenta passord</label><br />
+    <input class="form-control" type="password" name="RepeatPassword" required /><br />
+
+    <button type="submit" class="form-control btn btn-dark">Registrer bruker</button>
+</form>
+<br />
+<form asp-action="Login" asp-controller="Home">
+    <button type="submit" class="form-control btn btn-danger">Avbryt og gå tilbake</button>
 </form>
