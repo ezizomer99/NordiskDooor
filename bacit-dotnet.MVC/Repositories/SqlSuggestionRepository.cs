@@ -101,7 +101,7 @@ namespace bacit_dotnet.MVC.Repositories
         //readData leser 
         private IDataReader ReadData(string query, IDbConnection connection)
         {
-            connection.Open(); //This as far as it goes, klarer ikke å åpne connection
+            connection.Open(); 
             using var command = connection.CreateCommand();
             command.CommandType = System.Data.CommandType.Text;
             command.CommandText = query;

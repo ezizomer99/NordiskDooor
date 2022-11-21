@@ -1,5 +1,4 @@
-﻿ using bacit_dotnet.MVC.Models.Suggestions;
-using bacit_dotnet.MVC.Models.Users;
+﻿using bacit_dotnet.MVC.Models.Suggestions;
 using bacit_dotnet.MVC.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -12,13 +11,16 @@ namespace bacit_dotnet.MVC.Controllers
     {
         private readonly ISuggestionRepository suggestionRepository;
         private readonly ITeamRepository teamRepository;
+        private readonly ICategoryRepository categoryRepository;
 
-        public SuggestionsController(ISuggestionRepository suggestionRepository, ITeamRepository teamRepository)
+
+        public SuggestionsController(ISuggestionRepository suggestionRepository, ITeamRepository teamRepository, ICategoryRepository categoryRepository)
         {
             this.suggestionRepository = suggestionRepository;
             this.teamRepository = teamRepository;
+            this.categoryRepository = categoryRepository;
         }
-        
+
         public IActionResult Index()
         {
             var model = new SuggestionList();
@@ -29,54 +31,26 @@ namespace bacit_dotnet.MVC.Controllers
         {
             var model = new SuggestionEntity();
             model.teamList = teamRepository.GetTeams();
+            var categoires = categoryRepository.GetCategories();
+            ViewData["Category"] = categoires;
             return View(model);
         }
-        
+
 
 
         [HttpGet]
         public IActionResult Edit(int? SuggestionID)
         {
-            var model = new SuggestionEntity();
-            
-            if (SuggestionID != null)
-            {
-                var currentSuggestion = suggestionRepository.GetSuggestions().FirstOrDefault(x => x.SuggestionID == SuggestionID);
-                if (currentSuggestion != null)
-                {
-                    model.SuggestionID = currentSuggestion.SuggestionID;
-                    model.SuggestionMakerID = currentSuggestion.SuggestionMakerID;
-                    model.Title = currentSuggestion.Title;
-                    model.Category = currentSuggestion.Category;
-                    model.teamList = teamRepository.GetTeams();
-                    model.Team = currentSuggestion.Team;
-                    model.Description = currentSuggestion.Description;
-                    model.Phase = currentSuggestion.Phase;
-                    model.Status = currentSuggestion.Status;
-                    model.Deadline = currentSuggestion.Deadline;
-                }
-            }
-            return View(model);
+            var suggestion = suggestionRepository.GetSuggestions().FirstOrDefault(x => x.SuggestionID == SuggestionID);
+            suggestion.teamList = teamRepository.GetTeams();
+            var categoires = categoryRepository.GetCategories();
+            ViewData["Category"] = categoires;
+            return View(suggestion);
         }
 
         [HttpPost]
         public IActionResult Save(SuggestionEntity model)
         {
-
-            SuggestionEntity newSuggestion = new()
-            {
-                
-                SuggestionMakerID = model.SuggestionMakerID,
-                Title = model.Title,
-                Category = model.Category,
-                teamList = teamRepository.GetTeams(),
-                Team = model.Team,
-                Description = model.Description,
-                Phase = model.Phase,
-                Status = model.Status,
-                Deadline = model.Deadline,
-            };
-
             suggestionRepository.Edit(model);
             return RedirectToAction("Index");
         }
@@ -90,9 +64,9 @@ namespace bacit_dotnet.MVC.Controllers
         {
             model.SuggestionMakerID = User.Identity.GetUserId();
             suggestionRepository.AddSuggestion(model);
-            return RedirectToAction("Index", "Suggestions"); 
+            return RedirectToAction("Index", "Suggestions");
         }
-        
+
         public IActionResult Details(int? id)
         {
             if (id == null)
