@@ -1,5 +1,6 @@
 ﻿using bacit_dotnet.MVC.DataAccess;
 using bacit_dotnet.MVC.Models.Suggestions;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MySqlConnector;
 using System.Data;
 
@@ -19,7 +20,7 @@ namespace bacit_dotnet.MVC.Repositories
         {
             using (var connection = sqlConnector.GetDbConnection())
             {
-                var reader = ReadData("Select SuggestionID, SuggestionMakerID, Title, Category, TeamID, Description, Phase, Status, TimeStamp, Deadline from suggestions;", connection);
+                var reader = ReadData("select suggestionid, name, title,description,categoryname, teamname,phase,status,timestamp,deadline  from ((suggestions inner join users on if(suggestionmakerid is null, '9999',suggestionmakerid)=employeenumber) inner join category on suggestions.categoryid = category.categoryid) inner join teams on suggestions.teamid=teams.teamid;", connection);
                 var suggestions = new List<SuggestionEntity>();
                 while (reader.Read())
                 {
@@ -28,7 +29,7 @@ namespace bacit_dotnet.MVC.Repositories
                 }
                 connection.Close();
                 return suggestions;
-
+                
             }
         }
         //MapSuggestionFromReader tar og leser hver enkelt rad i tabelen suggestions og lager enteties ut ifra dem
@@ -38,9 +39,9 @@ namespace bacit_dotnet.MVC.Repositories
             suggestion.SuggestionID = reader.GetInt32(0);
             suggestion.SuggestionMakerID = reader.GetString(1);
             suggestion.Title = reader.GetString(2);
-            suggestion.Category = reader.GetString(3);
-            suggestion.Team = reader.GetString(4);
-            suggestion.Description = reader.GetString(5);
+            suggestion.Description = reader.GetString(3);
+            suggestion.Category = reader.GetString(4);
+            suggestion.Team = reader.GetString(5);
             suggestion.Phase = reader.GetString(6);
             suggestion.Status = reader.GetString(7);
             suggestion.TimeStamp = reader.GetDateTime(8);
@@ -50,14 +51,35 @@ namespace bacit_dotnet.MVC.Repositories
 
         public void AddSuggestion(SuggestionEntity suggestion)
         {
-            var sql = $"insert into suggestions(SuggestionMakerID, Title, Category, TeamID, Description, Phase, Status, Deadline) values('{suggestion.SuggestionMakerID}', '{suggestion.Title}', '{suggestion.Category}', '{suggestion.Team}', '{suggestion.Description}', '{suggestion.Phase}', '{suggestion.Status}', '{suggestion.Deadline}');";
+            var sql = $"insert into suggestions(SuggestionMakerID, Title, CategoryID, TeamID, Description, Phase, Status, Deadline) values('{suggestion.SuggestionMakerID}', '{suggestion.Title}', '{suggestion.Category}', '{suggestion.Team}', '{suggestion.Description}', '{suggestion.Phase}', '{suggestion.Status}', '{suggestion.Deadline}');";
             RunCommand(sql);
         }
-        public void Delete()
+        public void Delete(int SuggestionID)
+        {
+            var sql = $" delete from suggestions where SuggestionID = '{SuggestionID}'";
+            RunCommand(sql);
+        }
+
+        public void Edit(SuggestionEntity suggestion)
         {
 
-            Console.WriteLine("Work In Progress");
+            if (suggestion == null)
+            {
+                throw new Exception("Suggestion does not exist");
+            }
+            var sql = $@"update suggestions 
+                                set 
+                                   Title = '{suggestion.Title}', 
+                                   Categoryid='{suggestion.Category}',
+                                   Teamid = '{suggestion.Team}',
+                                   Description ='{suggestion.Description}', 
+                                   Phase ='{suggestion.Phase}' ,
+                                   Status ='{suggestion.Status}' ,
+                                   Deadline ='{suggestion.Deadline}' 
+                                where suggestionID = '{suggestion.SuggestionID}';";
+            RunCommand(sql);
         }
+
         //runcommand får en string og sender stringen til databasen 
         private void RunCommand(string sql)
         {
@@ -73,7 +95,7 @@ namespace bacit_dotnet.MVC.Repositories
         //readData leser 
         private IDataReader ReadData(string query, IDbConnection connection)
         {
-            connection.Open(); //This as far as it goes, klarer ikke å åpne connection
+            connection.Open(); 
             using var command = connection.CreateCommand();
             command.CommandType = System.Data.CommandType.Text;
             command.CommandText = query;

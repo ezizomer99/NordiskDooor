@@ -2,52 +2,79 @@
 @model SuggestionEntity
 
 
-<dl class="row">
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Title)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Title)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Description)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Description)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.SuggestionMakerID)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.SuggestionMakerID)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Status)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Status)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Category)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Category)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Phase)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Phase)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.TimeStamp)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.TimeStamp)
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Deadline)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Deadline)
-    </dd>
-</dl>
+<div class="align-content-center">
+    <div class="inspiserForslag">
+        <h1>Inspiser Forslag</h1>
+    </div>
+
+
+
+    <div class="container text-center">
+        <dl class="row">
+            <div class="row">
+
+                <dd class="col">
+                    <h10><b>Emne</b></h10>
+                    <div class="form-control">@Html.DisplayFor(model => model.Title)</div>
+                </dd>
+
+                <dd class="col">
+                    <h10><b>Forslag skrevet av:</b></h10>
+                    <div class="form-control">@Html.DisplayFor(model => model.SuggestionMakerID)</div>
+                </dd>
+            </div>
+
+            <div class="row">
+                <dd class="col">
+                    <h10><b>Kategori</b></h10>
+                    <div class="form-control">@Html.DisplayFor(model => model.Category)</div>
+                </dd>
+
+                <dd class="col">
+                    <h10><b>Avdeling</b></h10>
+                    <div class="form-control">@Html.DisplayFor(model => model.Team)</div>
+                </dd>
+            </div>
+
+            <div class="row">
+                    <dd class="col">
+                    <h10><b>Status</b></h10>
+
+                        <div class="form-control">@Html.DisplayFor(model => model.Status)</div>
+                    </dd>
+
+                    <dd class="col">
+                    <h10><b>Fase</b></h10>
+                        <div class="form-control">@Html.DisplayFor(model => model.Phase)</div>
+                </dd>
+            </div>
+
+            <div class="row">
+                    <dd class="col">
+                    <h10><b>Tidsstempel</b></h10>
+
+                        <div class="form-control">@Html.DisplayFor(model => model.TimeStamp)</div>
+                    </dd>
+
+                    <dd class="col">
+                    <h10><b>Frist</b></h10>
+                        <div class="form-control">@Html.DisplayFor(model => model.Deadline)</div>
+                    </dd>
+            </div>
+
+            <div>
+                <dt class="col">
+                    <h10><b>Beskrivelse</b></h10>
+                </dt>
+
+                <dd class="col">
+                    <div class="form-control">@Html.DisplayFor(model => model.Description)</div>
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+<br />
+<form asp-action="Index">
+    <input type="submit" class="form-control btn btn-danger" value="Gå tilbake" />
+</form>

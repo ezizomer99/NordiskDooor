@@ -14,5 +14,19 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: whitesmoke;
+}
+
+form {
+    max-width: 400px;
+    margin: auto;
+}
+
+nav {
+    background-color: #cdd2d8;
+}
+
+h1{
+    text-align:center;
 }

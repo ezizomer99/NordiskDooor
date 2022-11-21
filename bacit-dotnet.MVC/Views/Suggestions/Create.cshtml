@@ -1,60 +1,75 @@
 ﻿@using bacit_dotnet.MVC.Models.Suggestions
+@using bacit_dotnet.MVC.Models.Category
 @model SuggestionEntity
+@{
+    var error = TempData["Error"] as string;
+}
 
+@{
+    var categories = ViewData["Category"] as List<CategoryEntity>;
+}
 <form asp-action="addSuggestion" method="post">
 
-    <h1>Skriv inn ditt forbedringsforslag:</h1>
 
-    <ul>
-        <li>
+    <h1 style="text-align:Center">Skriv inn ditt forbedringsforslag:</h1>
+    @if (error != null)
+    {
+        <h5 style="text-align:center;" class="alert-danger"> @error </h5>
+    }
+
+    <li class="list-unstyled">
             <label for="Title">Emne:</label><br />
-            <input type="text" name="Title" placeholder="Emne"><br /><br />
+            <input class="form-control" type="text" name="Title" placeholder="Emne"><br /><br />
         </li>
-        <li>
+        <li class="list-unstyled">
             <label for="Team">Avdeling:</label><br />
-            <select name="Team" >
-                <option value="Sales and Market">Salg og Marked</option>
-                <option value="Production">Produksjon</option>
-                <option value="Technical">Teknisk</option>
-                <option value="Logistics">Logistikk</option>
+            <select class="form-control" name="Team">
+                @foreach (var team in Model.teamList)
+                {
+                    <option value="@team.TeamID">@team.TeamName</option>   
+                }
             </select> <br /><br />
         </li>
-        <li>
-            <label for="">EmployeeID</label><br />
-            <input type="text" name="SuggestionMakerID"/><br /><br />
-        </li>
-        <li>
+        <li class="list-unstyled">
             <label for="Category">Kategori:</label><br />
-            <select name="Category" >
-                <option value="Jadajada">Jadajada</option>
-                <option value="NeidaNeida">Neidaneida</option>
-                <option value="OkOk">OkOk</option>
-                <option value="Blabla">BlaBla</option>
+            <select class="form-control" name="Category">
+            @foreach (var category in categories)
+            {
+                <option value="@category.CategoryId"> @category.CategoryName </option>
+            }
             </select> <br /><br />
         </li>
-        <li>
+        <li class="list-unstyled">
             <label for="Deadline">Frist:</label><br />
-            <input type="datetime-local" name="Deadline"/> <br /><br />
+            <input class="form-control" type="date" name="Deadline" /> <br /><br />
         </li>
-        <li>
+        <li class="list-unstyled">
             <label for="Status">Status:</label><br />
-            <input name="Status" type="text">
-            <br /><br />
+            <select class="form-control" name="Status">
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select> <br /><br />
         </li>
-        <li>
+        <li class="list-unstyled">
             <label for="Phase">Fase:</label><br />
-            <select name="Phase" >
+            <select class="form-control" name="Phase">
                 <option value="Plan">Plan</option>
                 <option value="Do">Do</option>
                 <option value="Study">Study</option>
                 <option value="Act">Act</option>
             </select> <br /><br />
-        <li>
+        <li class="list-unstyled">
             <label for="Description">Forbedringsforslag:</label><br />
-            <input type="text" name="Description" placeholder="Skriv inn forbedringsforlsag" required style="height:100px; width:300px;" /><br /><br />
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="Description" rows="3"></textarea>
+    </li> <br />
+        <li class="list-unstyled">
+            <input class="btn btn-dark form-control" type="submit" value="Lagre" />
         </li>
-        <li>
-            <input type="submit" value="Lagre" />
-        </li>
-    </ul>
+    
+</form>
+<br />
+<form asp-action="Index">
+    <input type="submit" class="form-control btn btn-danger" value="Avbryt og gå tilbake" />
 </form>

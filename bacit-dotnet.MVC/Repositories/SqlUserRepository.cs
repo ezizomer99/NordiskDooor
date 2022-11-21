@@ -36,6 +36,12 @@ namespace bacit_dotnet.MVC.Repositories
             }
         }
 
+        public void SetAdmin(string employeeNumber, bool isAdmin)
+        {
+            var sql = $"update users set isAdmin={isAdmin} where employeenumber = '{employeeNumber}'";
+            RunCommand(sql);
+        }
+
         private static UserEntity MapUserFromReader(IDataReader reader)
         {
             var user = new UserEntity();

@@ -1,9 +1,8 @@
 
 using bacit_dotnet.MVC.DataAccess;
 using bacit_dotnet.MVC.Repositories;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System.Configuration;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 
 public class Program
 {
@@ -18,7 +17,16 @@ public class Program
 
         builder.Services.AddSingleton<IUserRepository, SqlUserRepository>();
         builder.Services.AddSingleton<ISuggestionRepository, SqlSuggestionRepository>();
+        builder.Services.AddSingleton<ITeamRepository, SqlTeamRepository>();
+        builder.Services.AddSingleton<ICategoryRepository, SqlCategoryRepository>();
 
+        builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/login";
+                options.AccessDeniedPath = "/denied";
+                
+            });
         var app = builder.Build();
          
         // Configure the HTTP request pipeline.
@@ -34,6 +42,7 @@ public class Program
 
         app.UseRouting();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");

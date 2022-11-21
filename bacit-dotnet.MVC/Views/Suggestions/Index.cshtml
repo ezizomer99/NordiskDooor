@@ -1,6 +1,15 @@
 ﻿@using bacit_dotnet.MVC.Models.Suggestions
 @model SuggestionList
-<table>
+<table class ="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <td><b>Tittel</b></td>
+            <td><b>Navn</b></td>
+            <td><b>Status</b></td>
+            <td><b>Kategori</b></td>
+            <td><b>Dato Oppretet</b></td>
+        </tr>
+    </thead>
     <tbody>
         @foreach (var suggestion in Model.Suggestions)
         {
@@ -11,11 +20,23 @@
                 <td>@suggestion.Category</td>
                 <td>@suggestion.TimeStamp</td>
                 <td><a asp-action="Details" asp-route-id="@suggestion.SuggestionID">Details</a></td>
+                <td>
+                    <form asp-action="edit" asp-controller="suggestions" method="get">
+                        <input type="hidden" name="Suggestionid" value="@suggestion.SuggestionID" />
+                        <input type="submit" value="Endre" />
+                    </form>
+                </td>
+
+                <td><form asp-controller="suggestions" asp-action="Delete">
+                    <input type="hidden" name="SuggestionID" value="@suggestion.SuggestionID" />
+                    <input type="submit" value="Slett" class="btn-danger" />
+                    </form>
+                </td>
                
             </tr>
         }
     </tbody>
 </table>
 <form asp-action="create">
-    <input type="submit" value="Lag Forslag"/>
+    <input class="form-control btn btn-dark" type="submit" value="Lag Forslag"/>
 </form>
