@@ -25,11 +25,6 @@ namespace bacit_dotnet.MVC.Controllers
         [HttpPost]
         public IActionResult AddTeam(TeamEntity model)
         {
-            if (model.TeamName == null)
-            {
-                TempData["Error"] = "Må fylle inn Team Navn";
-                return RedirectToAction("Register");
-            }
             teamRepository.Add(model);
             return RedirectToAction("Index", "Teams");
         }

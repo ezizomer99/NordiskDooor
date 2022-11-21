@@ -1,17 +1,10 @@
 ﻿@using bacit_dotnet.MVC.Models.Teams
 @model TeamEntity
-@{
-    var error = TempData["Error"] as string;
-}
 
 <h1>Registrer nytt team</h1>
 <form asp-action="AddTeam" asp-controller="Teams" method="post">
-    @if (error != null)
-    {
-        <h5 class="alert-danger" style="text-align:center;">@error</h5>
-    }
     <label for="TeamName">Team Navn</label>
-    <input class="form-control" type="text" name="TeamName" placeholder="Team navn"/><br />
+    <input class="form-control" type="text" name="TeamName" placeholder="Team navn" required/><br />
     <input class="form-control btn btn-dark" type="submit" value="Lagre"/>
 </form>
 <br />

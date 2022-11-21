@@ -1,7 +1,9 @@
 ﻿
 @using bacit_dotnet.MVC.Models.Users
 @model UserEntity
-
+@{
+    var error = TempData["Error"] as string;
+}
 <form asp-action="AddUser" asp-controller="Users" method="post">  
     <h1>Registrer bruker</h1><br />
 
@@ -13,7 +15,10 @@
 
     <label for="Email">E-post</label><br />
     <input class="form-control" type="text" name="Email" required /><br />
-
+    @if (error != null)
+    {
+        <h5 style="text-align:center;" class="alert-danger"> @error </h5>
+    }
     <label for="Password">Passord</label><br />
     <input class="form-control" type="password" name="Password" required /><br />
 
