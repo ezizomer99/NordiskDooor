@@ -5,30 +5,41 @@
 <form asp-action="AddUser" asp-controller="Users" method="post">
 
     <style>
-    .button 
+
+    .btn-danger 
     {
-        background-color: #2196F3;
-        border: none;
-        outline: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition-duration: 0.4s;
+            --bs-btn-color: #fff;
+            --bs-btn-bg: #dc3545;
+            --bs-btn-border-color: #dc3545;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: #bb2d3b;
+            --bs-btn-hover-border-color: #b02a37;
+            --bs-btn-focus-shadow-rgb: 225, 83, 97;
+            --bs-btn-active-color: #fff;
+            --bs-btn-active-bg: #b02a37;
+            --bs-btn-active-border-color: #a52834;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            --bs-btn-disabled-color: #fff;
+            --bs-btn-disabled-bg: #dc3545;
+            --bs-btn-disabled-border-color: #dc3544;
     }
 
-    .button:hover 
+    .btn-dark 
     {
-        background-color: #1976D2;
-    }
-
-    .button2 
-    {
-        background-color: red;
-        margin-right: 20px;
-    }
-
-    .button2:hover 
-    {
-        background-color: darkred;
+            --bs-btn-color: #fff;
+            --bs-btn-bg: #212529;
+            --bs-btn-border-color: #212529;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: #424649;
+            --bs-btn-hover-border-color: #373b3e;
+            --bs-btn-focus-shadow-rgb: 66, 70, 73;
+            --bs-btn-active-color: #fff;
+            --bs-btn-active-bg: #4d5154;
+            --bs-btn-active-border-color: #373b3e;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            --bs-btn-disabled-color: #fff;
+            --bs-btn-disabled-bg: #212529;
+            --bs-btn-disabled-border-color: #212529;
     }
 
     </style>
@@ -51,8 +62,8 @@
     <label for="Repeat Password">Gjenta passord</label><br />
     <input class="form-control" type="password" name="Gjenta Password" required /><br />
 
-    <button type="button" class="button">Registrer bruker</button>
+    <button type="button" class="btn-dark">Registrer bruker</button>
 
-    <button type="button" class="button button2">Avbryt og gå tilbake</button>
+    <button type="button" class="btn-danger">Avbryt og gå tilbake</button>
 
 </form>
