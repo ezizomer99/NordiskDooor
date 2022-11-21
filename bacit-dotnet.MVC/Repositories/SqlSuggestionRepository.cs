@@ -59,6 +59,27 @@ namespace bacit_dotnet.MVC.Repositories
             var sql = $" delete from suggestions where SuggestionID = '{SuggestionID}'";
             RunCommand(sql);
         }
+
+        public void Edit(SuggestionEntity suggestion)
+        {
+
+            if (suggestion == null)
+            {
+                throw new Exception("Suggestion does not exist");
+            }
+            var sql = $@"update suggestions 
+                                set 
+                                   Title = '{suggestion.Title}', 
+                                   Categoryid='{suggestion.Category}',
+                                   Teamid = '{suggestion.Team}',
+                                   Description ='{suggestion.Description}', 
+                                   Phase ='{suggestion.Phase}' ,
+                                   Status ='{suggestion.Status}' ,
+                                   Deadline ='{suggestion.Deadline}' 
+                                where suggestionID = '{suggestion.SuggestionID}';";
+            RunCommand(sql);
+        }
+
         //runcommand får en string og sender stringen til databasen 
         private void RunCommand(string sql)
         {

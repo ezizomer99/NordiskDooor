@@ -26,5 +26,9 @@ namespace bacit_dotnet.MVC.Tests.TestRepositories
         {
             return;
         }
+        public void Edit(SuggestionEntity suggestion)
+        {
+            return;
+        }
     }
 }

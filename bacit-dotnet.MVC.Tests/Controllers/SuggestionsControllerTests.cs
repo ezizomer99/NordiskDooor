@@ -16,7 +16,8 @@ namespace bacit_dotnet.MVC.Tests.Controllers
         {
             var repoSuggestions = new TestSqlSuggestionsRepository();
             var repoTeams = new TestSqlTeamRepository();
-            var testController = new SuggestionsController(repoSuggestions,repoTeams);
+            var repoCategory = new TestSqlCategoryRepository();
+            var testController = new SuggestionsController(repoSuggestions,repoTeams, repoCategory);
         }
 
         [Test]
@@ -24,7 +25,8 @@ namespace bacit_dotnet.MVC.Tests.Controllers
         {
             var repoSuggestions = new TestSqlSuggestionsRepository();
             var repoTeams = new TestSqlTeamRepository();
-            var testController = new SuggestionsController(repoSuggestions, repoTeams);
+            var repoCategory = new TestSqlCategoryRepository();
+            var testController = new SuggestionsController(repoSuggestions, repoTeams, repoCategory);
 
             var result = testController.Index() as ViewResult;
 
@@ -36,7 +38,8 @@ namespace bacit_dotnet.MVC.Tests.Controllers
         {
             var repoSuggestions = new TestSqlSuggestionsRepository();
             var repoTeams = new TestSqlTeamRepository();
-            var testController = new SuggestionsController(repoSuggestions, repoTeams);
+            var repoCategory = new TestSqlCategoryRepository();
+            var testController = new SuggestionsController(repoSuggestions, repoTeams, repoCategory);
 
             var result = testController.Details(1) as ViewResult;
 
@@ -70,7 +73,8 @@ namespace bacit_dotnet.MVC.Tests.Controllers
            
             var repoSuggestions = new TestSqlSuggestionsRepository();
             var repoTeams = new TestSqlTeamRepository();
-            var testController = new SuggestionsController(repoSuggestions, repoTeams);
+            var repoCategory = new TestSqlCategoryRepository();
+            var testController = new SuggestionsController(repoSuggestions, repoTeams, repoCategory);
 
 
             var result = testController.Delete(1) as RedirectToActionResult;
