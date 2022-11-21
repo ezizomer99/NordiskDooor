@@ -11,6 +11,7 @@ namespace bacit_dotnet.MVC.Controllers
     {
         private readonly IUserRepository userRepository;
         private UserList userList = new UserList();
+        //private readonly ILogger logger;
        
 
         public UsersController(IUserRepository userRepository)
@@ -63,6 +64,12 @@ namespace bacit_dotnet.MVC.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult setAdmin(string employeeNumber, bool isAdmin)
+        {
+            userRepository.SetAdmin(employeeNumber, isAdmin);
+            return RedirectToAction("Index");
+        }
         public IActionResult Login()
         {
             return View();

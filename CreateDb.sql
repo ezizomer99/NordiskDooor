@@ -1,4 +1,4 @@
-create database if not exists webAppDatabase;
+/*create database if not exists webAppDatabase;
 use webAppDatabase;
 create table if not EXISTS users
 (

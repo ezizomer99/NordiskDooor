@@ -29,7 +29,7 @@ namespace bacit_dotnet.MVC.Controllers
         }
 
         [HttpGet("login")]
-        public IActionResult login(string returnUrl)
+        public IActionResult Login(string returnUrl)
         {
             ViewData["returnUrl"] = returnUrl;
             return View();
@@ -38,11 +38,16 @@ namespace bacit_dotnet.MVC.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Validate(string employeeNumber, string password, string returnUrl)
         {
+            if (password == null || employeeNumber == null)
+            {
+                TempData["Error"] = "Venligst fyll inn alle felt!";
+                return RedirectToAction("Login");
+            }
             var user = userList.GetUser(employeeNumber);
             if (!(user == null)) //if user = null vil ikke neste if setning kunne fullføres derfor er denne her 
             {
                 ViewData["returnUrl"] = returnUrl;
-                if (user.EmployeeNumber.Equals(employeeNumber) && user.Password.Equals(EncryptString.Encrypt(password)))
+                if (user.Password.Equals(EncryptString.Encrypt(password)))
                 {
                     var claims = new List<Claim>();
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, employeeNumber));

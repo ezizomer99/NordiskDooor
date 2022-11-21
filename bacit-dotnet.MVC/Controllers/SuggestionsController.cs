@@ -22,7 +22,7 @@ namespace bacit_dotnet.MVC.Controllers
         {
             var model = new SuggestionList();
             model.Suggestions = suggestionRepository.GetSuggestions();
-            return View(model);
+            return View("Index",model);
         }
         public IActionResult Create()
         {
@@ -34,7 +34,7 @@ namespace bacit_dotnet.MVC.Controllers
         public IActionResult Delete(int SuggestionID)
         {
             suggestionRepository.Delete(SuggestionID);
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
         [HttpPost]
         public IActionResult AddSuggestion(SuggestionEntity model)
@@ -47,7 +47,7 @@ namespace bacit_dotnet.MVC.Controllers
             }
             if (model.Deadline == null)
             {
-                string error = "Du Glemte å velge dato for fristen for å gjennomføre!";
+                string error = "Du glemte å velge dato for fristen for å gjennomføre!";
                 TempData["Error"] = error;
                 return RedirectToAction("Create");
             }
@@ -76,7 +76,7 @@ namespace bacit_dotnet.MVC.Controllers
                 return NotFound();
             }
 
-            return View(suggestion);
+            return View("Details",suggestion);
         }
     }
 }

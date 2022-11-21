@@ -1,30 +1,25 @@
 ﻿using bacit_dotnet.MVC.Controllers;
 using bacit_dotnet.MVC.Models.Users;
 using bacit_dotnet.MVC.Repositories;
+using bacit_dotnet.MVC.Tests.TestRepositories;
 using Microsoft.AspNetCore.Mvc;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace bacit_dotnet.MVC.Tests.Controllers
 {
+    [TestFixture]
     public class HomeControllerTest
     {
-        [Fact]
-        public void  Test_Index_ReturnsViewResault()
+        [Test]
+        public void Test_Denied_ReturnView()
         {
-            //Arrange
-           var mockRepo = new Mock<IUserRepository>();
-            var controller = new HomeController(mockRepo.Object);
-            //Act
-            var result =  controller.Index();
+            var userRepo = new TestSqlUserRepository();
+            var controller = new HomeController(userRepo);
+            
 
-            //Assert
-            Assert.IsType<ViewResult>(result);
+            var result = controller.Denied() as ViewResult;
+
+            Assert.IsNotNull(result);
         }
-
     }
 }

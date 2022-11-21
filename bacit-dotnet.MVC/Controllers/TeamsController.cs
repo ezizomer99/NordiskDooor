@@ -14,7 +14,7 @@ namespace bacit_dotnet.MVC.Controllers
         {
             this.teamRepository = teamRepository;
         }
-        [HttpGet]
+        
         public IActionResult Index()
         {
             var model = new TeamList();
@@ -25,6 +25,11 @@ namespace bacit_dotnet.MVC.Controllers
         [HttpPost]
         public IActionResult AddTeam(TeamEntity model)
         {
+            if (model.TeamName == null)
+            {
+                TempData["Error"] = "Må fylle inn Team Navn";
+                return RedirectToAction("Register");
+            }
             teamRepository.Add(model);
             return RedirectToAction("Index", "Teams");
         }
