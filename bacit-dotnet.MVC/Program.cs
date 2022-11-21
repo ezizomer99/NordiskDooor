@@ -1,12 +1,8 @@
 
 using bacit_dotnet.MVC.DataAccess;
 using bacit_dotnet.MVC.Repositories;
-using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System.Configuration;
-using System.Security.Claims;
+
 
 public class Program
 {

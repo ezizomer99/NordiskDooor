@@ -2,6 +2,7 @@
 using bacit_dotnet.MVC.Models;
 using bacit_dotnet.MVC.Models.Users;
 using bacit_dotnet.MVC.Repositories;
+using bacit_dotnet.MVC.Security;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -12,29 +13,23 @@ namespace bacit_dotnet.MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IUserRepository userRepository;
         private UserList userList = new UserList();
 
-        public HomeController(ILogger<HomeController> logger, IUserRepository userRepository)
+        public HomeController( IUserRepository userRepository)
         {
-            _logger = logger;
+            
             this.userRepository = userRepository;
             userList.Users = userRepository.GetUsers();
         }
 
-        [HttpGet]
         public IActionResult Index()
         {
-            var model = new RazorViewModel
-            {
-                Content = "Nordic Door"
-            };
-            return View("Index", model);
+            return View("Index");
         }
 
         [HttpGet("login")]
-        public IActionResult login(string returnUrl)
+        public IActionResult Login(string returnUrl)
         {
             ViewData["returnUrl"] = returnUrl;
             return View();
@@ -43,11 +38,16 @@ namespace bacit_dotnet.MVC.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Validate(string employeeNumber, string password, string returnUrl)
         {
+            if (password == null || employeeNumber == null)
+            {
+                TempData["Error"] = "Venligst fyll inn alle felt!";
+                return RedirectToAction("Login");
+            }
             var user = userList.GetUser(employeeNumber);
             if (!(user == null)) //if user = null vil ikke neste if setning kunne fullføres derfor er denne her 
             {
                 ViewData["returnUrl"] = returnUrl;
-                if (user.EmployeeNumber.Equals(employeeNumber) && user.Password.Equals(password))
+                if (user.Password.Equals(EncryptString.Encrypt(password)))
                 {
                     var claims = new List<Claim>();
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, employeeNumber));

@@ -1,5 +1,6 @@
 ﻿using bacit_dotnet.MVC.Models.Users;
 using bacit_dotnet.MVC.Repositories;
+using bacit_dotnet.MVC.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -10,6 +11,7 @@ namespace bacit_dotnet.MVC.Controllers
     {
         private readonly IUserRepository userRepository;
         private UserList userList = new UserList();
+        //private readonly ILogger logger;
        
 
         public UsersController(IUserRepository userRepository)
@@ -28,6 +30,7 @@ namespace bacit_dotnet.MVC.Controllers
         [HttpPost]
         public IActionResult AddUser(UserEntity model)
         {
+            model.Password = EncryptString.Encrypt(model.Password);
             userRepository.Add(model);
             return RedirectToAction("Index","suggestions");
         }
@@ -61,6 +64,12 @@ namespace bacit_dotnet.MVC.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult setAdmin(string employeeNumber, bool isAdmin)
+        {
+            userRepository.SetAdmin(employeeNumber, isAdmin);
+            return RedirectToAction("Index");
+        }
         public IActionResult Login()
         {
             return View();

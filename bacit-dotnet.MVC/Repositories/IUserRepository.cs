@@ -7,5 +7,7 @@ namespace bacit_dotnet.MVC.Repositories
         void Add(UserEntity user);
         List<UserEntity> GetUsers();
         void Delete(string email);
+
+        void SetAdmin(string employeeNumber, bool isAdmin);
     }
 }

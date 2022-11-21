@@ -1,4 +1,4 @@
-create database if not exists webAppDatabase;
+/*create database if not exists webAppDatabase;
 use webAppDatabase;
 create table if not EXISTS users
 (
@@ -8,16 +8,17 @@ create table if not EXISTS users
     Password        varchar(255) not null,
     IsAdmin        boolean not null DEFAULT false
 );
-insert into users(EmployeeNumber, Name, Email, Password,IsAdmin) values ('1234','Hans Gruber', 'hans@gruber.net','HashWorkInProgress',true);
-insert into users(EmployeeNumber, Name, Email, Password) values ('1235','John McClane', 'jmcclan@nypd.com','UnderConstruction');
-insert into users(EmployeeNumber, Name, Email, Password) values ('1236','Colin Powell', 'cpowell@lapd.com','twinkie');
-insert into users(EmployeeNumber, Name, Email, Password) values ('1237','Mr Takagi', 'thebigone@thetower.com','GitGudScrb');
-insert into users(EmployeeNumber, Name, Email, Password,IsAdmin) values ('0000','Cookie Monster', 'cookies@jar.nom','Cookies123',true);
-insert into users(EmployeeNumber, Name, Email, Password) values ('1239','Bob Lacost', 'bobby@lacost.co','Pizza');
-insert into users(EmployeeNumber, Name, Email, Password) values ('1240','Lance Wololo', 'wololo@aoe.net','Relic10');
-insert into users(EmployeeNumber, Name, Email, Password) values ('1241','Mr Alucard', 'alucard@walachia.com','notDracula');
-insert into users(EmployeeNumber, Name, Email, Password) values ('1242','Karl Johan', 'karl@bernadotte.fr','NotAFrenchGuy');
-insert into users(EmployeeNumber, Name, Email, Password) values ('1243','Donald Duck', 'donald@duck.ab','giveMoney');
+insert into users(EmployeeNumber, Name, Email, Password,IsAdmin) values ('1234','Hans Gruber', 'hans@gruber.net','87e68accd414071dc0715d1cfb3ffd2fee1331a5907299fe6f80f6f62611279f',true);
+insert into users(EmployeeNumber, Name, Email, Password) values ('1235','John McClane', 'jmcclan@nypd.com','a7144664e26d9985b801fb24ad19128973c143609cff060866c6a27fd55976ed');
+insert into users(EmployeeNumber, Name, Email, Password) values ('1236','Colin Powell', 'cpowell@lapd.com','11e9420772d2c61294766d5a4549880480786d1af1a8712adbeaa6a81159fa83');
+insert into users(EmployeeNumber, Name, Email, Password) values ('1237','Mr Takagi', 'thebigone@thetower.com','b45bd77a8dac979c466f6ca4e32b7dd1e5c0dfb22fc2e6f70fda585da76d8e59');
+insert into users(EmployeeNumber, Name, Email, Password,IsAdmin) values ('0000','Cookie Monster', 'cookies@jar.nom','aa71f196522c6da5ca2155b328d3cb4db51458134ee62bb37fd872a529f655be',true);
+insert into users(EmployeeNumber, Name, Email, Password) values ('1239','Bob Lacost', 'bobby@lacost.co','f12958816a49adfa2c6c8de8dd2144c163e92c5e375de964d533187c7d236c36');
+insert into users(EmployeeNumber, Name, Email, Password) values ('1240','Lance Wololo', 'wololo@aoe.net','6bbb2195dc0134519a3790a70f2f2025672abb7211e07182c7a980be37271c3f');
+insert into users(EmployeeNumber, Name, Email, Password) values ('1241','Mr Alucard', 'alucard@walachia.com','122f9f69bb8b6b7a67cc1215cbaeb7e4e9c64f6de76b6b00d709fc42595d22b3');
+insert into users(EmployeeNumber, Name, Email, Password) values ('1242','Karl Johan', 'karl@bernadotte.fr','1ba95f2b333b7ba565ae07043d02693b69095ae467eaecda550506c917dd5bc6');
+insert into users(EmployeeNumber, Name, Email, Password) values ('1243','Donald Duck', 'donald@duck.ab','1c430d61219ff413379c8516b0cece1c415577e1a31add27c3fef5ac8456771f');
+insert into users(EmployeeNumber, Name, Email, Password) values ('9999','Deleted', 'THIS USER IS DELETED','8a9c7e12979ad09dcec2894d76250b3712978fa97a1ffe11777a009b63d3a806');
 
 create table if not EXISTS teams
 (
@@ -58,17 +59,17 @@ insert into category(CategoryID, CategoryName) values ('10','Individual');
 create table if not EXISTS suggestions
 (
     SuggestionID int auto_increment NOT NULL PRIMARY KEY,
-    SuggestionMakerID varchar(20) NOT NULL,
+    SuggestionMakerID varchar(20),
     CategoryID int NOT NULL,
-    TeamID int NOT NULL,
+    TeamID int,
     Title varchar(100) NOT NULL,
     Description varchar(255) NOT NULL,
     Phase varchar(20) NOT NULL,
     Status varchar(50) NOT NULL,
     TimeStamp timestamp NOT NULL,
     Deadline varchar(50) NOT NULL,
-    FOREIGN KEY (SuggestionMakerID) REFERENCES users(EmployeeNumber),
-    FOREIGN KEY (TeamID) REFERENCES teams(TeamID),
+    FOREIGN KEY (SuggestionMakerID) REFERENCES users(EmployeeNumber) on delete set null,
+    FOREIGN KEY (TeamID) REFERENCES teams(TeamID) on delete set null,
     FOREIGN KEY (CategoryID) REFERENCES category(CategoryID)
 );
 
@@ -96,13 +97,12 @@ insert into suggestions(SuggestionID, SuggestionMakerID, Title, CategoryID, Team
 
 create table if not EXISTS comments
 (
-    CommentID int auto_increment not null,
+    CommentID int PRIMARY KEY auto_increment not null,
     SuggestionID int not null,
-    EmployeeNumber varchar(20) not null,
+    EmployeeNumber varchar(20),
     CommentText varchar(100) not null,
-    PRIMARY KEY (CommentID),
-    FOREIGN KEY (SuggestionID) REFERENCES suggestions(SuggestionID),
-    FOREIGN KEY (EmployeeNumber) REFERENCES users(EmployeeNumber)
+    FOREIGN KEY (EmployeeNumber) REFERENCES users(EmployeeNumber) on delete set null,
+    FOREIGN KEY (SuggestionID) REFERENCES suggestions(SuggestionID) on delete cascade
 );
 
 insert into comments(commentID,SuggestionID,EmployeeNumber,CommentText)

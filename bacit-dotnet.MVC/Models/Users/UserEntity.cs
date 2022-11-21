@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.Build.Framework;
+
 namespace bacit_dotnet.MVC.Models.Users
 {
     public class UserEntity

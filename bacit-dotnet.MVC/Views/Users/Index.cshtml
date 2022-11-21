@@ -1,31 +1,40 @@
 ﻿@using bacit_dotnet.MVC.Models.Users
 @model UserList
-<form asp-action="Register">
-    <input type="submit" value="Registrer deg"/>
-</form>
-
-<table>
+<table class="table table-bordered table-responsive table-hover">
     <tr>
-        <td>Name</td>
-        <td>Email</td>
+        <td><b>Navn</b></td>
+        <td><b>Email</b></td>
     </tr>
     @foreach (var user in Model.Users)
-    {
+    {   if(!user.EmployeeNumber.Equals("9999")){
+
         <tr>
             <td>@user.Name</td>
             <td>@user.Email</td>
-            <td><form  asp-action="delete" asp-controller="users" method="post">
-                <input type="hidden" name="Email" value="@user.Email"/>
-                <input type="submit" value="Slett"/>
-            </form>
+            <td>
+                @if (user.IsAdmin)
+                {
+                    <form asp-action="setAdmin" asp-controller="users" method="get">
+                        <input type="hidden" name="employeenumber" value="@user.EmployeeNumber" />
+                        <input type="hidden" name="isAdmin" value="false" />
+                        <input class="btn btn-warning" type="submit" value="Fjern Admin Tilgang" />
+                    </form>
+                } else {
+                    <form asp-action="setAdmin" asp-controller="users" method="get">
+                        <input type="hidden" name="employeenumber" value="@user.EmployeeNumber" />
+                        <input type="hidden" name="isAdmin" value="true" />
+                        <input class="btn btn-success" type="submit" value="Gi Admin tilgang" />
+                    </form>
+                }
             </td>
             <td>
-                <form asp-action="index" asp-controller="users" method="get">
+                <form asp-action="delete" asp-controller="users" method="post">
                     <input type="hidden" name="Email" value="@user.Email" />
-                    <input type="submit" value="Endre" />
+                        <input class="btn btn-danger" type="submit" value="Slett" />
                 </form>
             </td>
         </tr>   
+        }
     }
 </table>
    
