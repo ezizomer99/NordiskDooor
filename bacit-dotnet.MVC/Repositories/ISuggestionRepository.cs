@@ -6,6 +6,9 @@ namespace bacit_dotnet.MVC.Repositories
     {
         void AddSuggestion(SuggestionEntity suggestion);
         List<SuggestionEntity> GetSuggestions();
+        void Edit(SuggestionEntity suggestion);
+
         void Delete(int Suggestion);
+        
     }
 }

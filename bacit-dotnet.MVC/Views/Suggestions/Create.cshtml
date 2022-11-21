@@ -1,9 +1,13 @@
 ﻿@using bacit_dotnet.MVC.Models.Suggestions
+@using bacit_dotnet.MVC.Models.Category
 @model SuggestionEntity
 @{
     var error = TempData["Error"] as string;
 }
 
+@{
+    var categories = ViewData["Category"] as List<CategoryEntity>;
+}
 <form asp-action="addSuggestion" method="post">
 
 
@@ -29,10 +33,10 @@
         <li class="list-unstyled">
             <label for="Category">Kategori:</label><br />
             <select class="form-control" name="Category">
-                <option value="1">Jadajada</option>
-                <option value="2">Neidaneida</option>
-                <option value="3">OkOk</option>
-                <option value="4">BlaBla</option>
+            @foreach (var category in categories)
+            {
+                <option value="@category.CategoryId"> @category.CategoryName </option>
+            }
             </select> <br /><br />
         </li>
         <li class="list-unstyled">
