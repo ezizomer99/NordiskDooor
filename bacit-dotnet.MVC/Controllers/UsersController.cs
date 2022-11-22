@@ -11,7 +11,6 @@ namespace bacit_dotnet.MVC.Controllers
     {
         private readonly IUserRepository userRepository;
         private UserList userList = new UserList();
-        //private readonly ILogger logger;
        
 
         public UsersController(IUserRepository userRepository)
@@ -54,8 +53,6 @@ namespace bacit_dotnet.MVC.Controllers
         {
             var model = new UserEntity();
             return View(model);
-
-           
         }
 
         public IActionResult ProcessLogin(UserEntity userEntity)

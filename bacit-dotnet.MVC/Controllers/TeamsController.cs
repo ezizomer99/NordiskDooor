@@ -20,7 +20,6 @@ namespace bacit_dotnet.MVC.Controllers
         
         public IActionResult Index()
         {
-            _logger.LogInformation("Test, testing, WOLOLO");
             var model = new TeamList();
             model.Teams = teamRepository.GetTeams();
             return View(model);
