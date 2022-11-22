@@ -21,12 +21,12 @@
             <td>
                 <form asp-action="delete" asp-controller="teams" method="post">
                     <input type="hidden" name="TeamId" value="@team.TeamID" />
-                    <input type="submit" value="Slett" class="btn btn-danger" />
+                    <input type="submit" onclick="return confirm('Er du sikker på at du vil slette?')" value="Slett" class="btn btn-danger" />
                 </form>
             </td>
         </tr>
     }
 </table>
 <form asp-action="Register">
-    <input type="submit" value="Opprett Team" />
+    <input type="submit" class="btn btn-dark form-control" value="Opprett Team" />
 </form>

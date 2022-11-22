@@ -19,17 +19,17 @@
                 <td>@suggestion.Status</td>
                 <td>@suggestion.Category</td>
                 <td>@suggestion.TimeStamp</td>
-                <td><a asp-action="Details" asp-route-id="@suggestion.SuggestionID">Details</a></td>
+                <td><a class="btn btn-info" asp-action="Details" asp-route-id="@suggestion.SuggestionID">Details</a></td>
                 <td>
                     <form asp-action="edit" asp-controller="suggestions" method="get">
                         <input type="hidden" name="Suggestionid" value="@suggestion.SuggestionID" />
-                        <input type="submit" value="Endre" />
+                        <input class="btn btn-secondary" type="submit" value="Endre" />
                     </form>
                 </td>
 
                 <td><form asp-controller="suggestions" asp-action="Delete">
                     <input type="hidden" name="SuggestionID" value="@suggestion.SuggestionID" />
-                    <input type="submit" value="Slett" class="btn-danger" />
+                        <input onclick="return confirm('Er du sikker på at du vil slette?')" type="submit" value="Slett" class="btn btn-danger" />
                     </form>
                 </td>
                

@@ -9,5 +9,5 @@
 </form>
 <br />
 <form asp-action="Index" asp-controller="Teams">
-    <input type="submit" class="form-control btn btn-danger" value="Avbryt og gå tilbake" />
+    <input onclick="return confirm('Er du sikker på at du vil avbryte?')" type="submit" class="form-control btn btn-danger" value="Avbryt og gå tilbake" />
 </form>
