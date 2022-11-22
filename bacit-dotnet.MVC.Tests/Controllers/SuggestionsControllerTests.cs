@@ -46,14 +46,15 @@ namespace bacit_dotnet.MVC.Tests.Controllers
             Assert.AreEqual("Details", result.ViewName);
         }
 
-       /*[Test]
+       [Test]
         public void Test_AddSuggestion_WhenTitleIsNull()
         {
             //Tempdata vil føre til en NullRefrenceException, uten TempData vil denne fungere
             //Har noe med sesssion å gjøre
             var repoSuggestions = new TestSqlSuggestionsRepository();
             var repoTeams = new TestSqlTeamRepository();
-            var testController = new SuggestionsController(repoSuggestions, repoTeams);
+            var repoCategory = new TestSqlCategoryRepository();
+            var testController = new SuggestionsController(repoSuggestions, repoTeams, repoCategory);
             var suggestion = new SuggestionEntity
             {
                 SuggestionID = 1,
@@ -64,8 +65,8 @@ namespace bacit_dotnet.MVC.Tests.Controllers
 
             var result = testController.AddSuggestion(suggestion) as RedirectToActionResult;
 
-            Assert.AreEqual("Create",result.ActionName);
-        }*/
+            Assert.AreEqual("Create", result.ActionName);
+        }
 
         [Test]
         public void Test_SuggestionDelete_ReturnIndexView()
