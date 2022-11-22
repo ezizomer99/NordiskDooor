@@ -90,9 +90,9 @@ namespace bacit_dotnet.MVC.Controllers
         {
             model.SuggestionMakerID = User.Identity.GetUserId();
             suggestionRepository.AddSuggestion(model);
-            return RedirectToAction("Index", "Suggestions"); 
+            return RedirectToAction("Index", "Suggestions");
         }
-        
+
         public IActionResult Details(int? id)
         {
             if (id == null)
