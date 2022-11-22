@@ -2,6 +2,7 @@
 using bacit_dotnet.MVC.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace bacit_dotnet.MVC.Controllers
 {
@@ -9,10 +10,12 @@ namespace bacit_dotnet.MVC.Controllers
     public class TeamsController : Controller
     {
         private readonly ITeamRepository teamRepository;
+        private readonly ILogger<TeamsController> _logger;
 
-        public TeamsController(ITeamRepository teamRepository)
+        public TeamsController(ITeamRepository teamRepository, ILogger<TeamsController> _logger)
         {
             this.teamRepository = teamRepository;
+            this._logger = _logger;
         }
         
         public IActionResult Index()
@@ -25,6 +28,7 @@ namespace bacit_dotnet.MVC.Controllers
         [HttpPost]
         public IActionResult AddTeam(TeamEntity model)
         {
+            _logger.LogInformation($"{model.TeamName}");
             teamRepository.Add(model);
             return RedirectToAction("Index", "Teams");
         }

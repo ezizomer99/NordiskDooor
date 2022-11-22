@@ -7,7 +7,7 @@ namespace bacit_dotnet.MVC.Security
     {
         public static string Encrypt(string s)
         {
-            using var sha265 =  SHA256.Create();
+            using var sha265 = SHA256.Create();
             byte[] bytes = sha265.ComputeHash(Encoding.UTF8.GetBytes(s));
 
             var sb = new StringBuilder();

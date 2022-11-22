@@ -117,10 +117,10 @@
         <textarea class="form-control" id="exampleFormControlTextarea1" name="Description" rows="3">@Model.Description</textarea>
     </li> <br />
     <li class="list-unstyled">
-        <input class="btn btn-dark form-control" type="submit" value="Lagre" />
+        <input onclick="return confirm('Er du sikker på at du vil lagre?')" class="btn btn-dark form-control" type="submit" value="Lagre" />
     </li>
 </form>
 <br />
 <form asp-action="Index">
-    <input type="submit" class="form-control btn btn-danger" value="Avbryt og gå tilbake" />
+    <input onclick="return confirm('Er du sikker på at du vil avbryte?')" type="submit" class="form-control btn btn-danger" value="Avbryt og gå tilbake" />
 </form>
