@@ -20,13 +20,15 @@ namespace bacit_dotnet.MVC.Controllers
             this.teamRepository = teamRepository;
             this.categoryRepository = categoryRepository;
         }
-
+        //Metoden tar å kaller på en index og returnerer view-et index
+        //Henter også fra databasen med alle suggestions av model
         public IActionResult Index()
         {
             var model = new SuggestionList();
             model.Suggestions = suggestionRepository.GetSuggestions();
             return View("Index",model);
         }
+        //Metoden lager en ny SuggestionEntity, henter teams og category fra repositoryen
         public IActionResult Create()
         {
             var model = new SuggestionEntity();
