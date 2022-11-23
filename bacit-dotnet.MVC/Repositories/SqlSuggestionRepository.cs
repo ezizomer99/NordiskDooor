@@ -32,6 +32,21 @@ namespace bacit_dotnet.MVC.Repositories
                 
             }
         }
+        public List<SuggestionEntity> GetSuggestionsWithSearchQyery(string searchWord)
+        {
+            using (var connection = sqlConnector.GetDbConnection())
+            {
+                var reader = ReadData($"select suggestionid, name, title,description,categoryname, teamname,phase,status,timestamp,deadline  from ((suggestions inner join users on if(suggestionmakerid is null, '9999',suggestionmakerid)=employeenumber) inner join category on suggestions.categoryid = category.categoryid) inner join teams on suggestions.teamid=teams.teamid and teamname='{searchWord}';", connection);
+                var suggestions = new List<SuggestionEntity>();
+                while (reader.Read())
+                {
+                    SuggestionEntity suggestion = MapUSuggestionFromReader(reader);
+                    suggestions.Add(suggestion);
+                }
+                connection.Close();
+                return suggestions;
+            }
+        }
         //MapSuggestionFromReader tar og leser hver enkelt rad i tabelen suggestions og lager enteties ut ifra dem
         private static SuggestionEntity MapUSuggestionFromReader(IDataReader reader)
         {

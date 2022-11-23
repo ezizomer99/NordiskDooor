@@ -1,4 +1,5 @@
 ﻿using bacit_dotnet.MVC.Models.Suggestions;
+using bacit_dotnet.MVC.Models.Teams;
 using bacit_dotnet.MVC.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -20,12 +21,21 @@ namespace bacit_dotnet.MVC.Controllers
             this.teamRepository = teamRepository;
             this.categoryRepository = categoryRepository;
         }
-
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(string searchWord)
         {
+            var teamlist = teamRepository.GetTeams();
             var model = new SuggestionList();
-            model.Suggestions = suggestionRepository.GetSuggestions();
-            return View("Index",model);
+            ViewData["TeamList"] = teamlist;
+            if (searchWord == null || searchWord.Equals("all"))
+            {
+                model.Suggestions = suggestionRepository.GetSuggestions();
+                return View(model);
+            } else
+            {
+                model.Suggestions = suggestionRepository.GetSuggestionsWithSearchQyery(searchWord);
+                return View(model);
+            }
         }
         public IActionResult Create()
         {
@@ -62,24 +72,6 @@ namespace bacit_dotnet.MVC.Controllers
         [HttpPost]
         public IActionResult AddSuggestion(SuggestionEntity model)
         {
-            if (model.Title == null)
-            {
-                string error = "Du må ha tittel!";
-                TempData["Error"] = error;
-                return RedirectToAction("Create");
-            }
-            if (model.Deadline == null)
-            {
-                string error = "Du glemte å velge dato for fristen for å gjennomføre!";
-                TempData["Error"] = error;
-                return RedirectToAction("Create");
-            }
-            if (model.Description == null)
-            {
-                string error = "Du må ha med beskrivelse!";
-                TempData["Error"] = error;
-                return RedirectToAction("Create");
-            }
             model.SuggestionMakerID = User.Identity.GetUserId();
             suggestionRepository.AddSuggestion(model);
             return RedirectToAction("Index", "Suggestions");
@@ -89,16 +81,11 @@ namespace bacit_dotnet.MVC.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var suggestion = suggestionRepository.GetSuggestions()
                 .FirstOrDefault(m => m.SuggestionID == id); //returns the first value of multiple elemnts that meets the requirements
-            if (suggestion == null)
-            {
-                return NotFound();
-            }
-
             return View("Details",suggestion);
         }
     }

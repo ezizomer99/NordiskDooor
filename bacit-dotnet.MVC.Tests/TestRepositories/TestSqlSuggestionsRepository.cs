@@ -30,5 +30,10 @@ namespace bacit_dotnet.MVC.Tests.TestRepositories
         {
             return;
         }
+
+        public List<SuggestionEntity> GetSuggestionsWithSearchQyery(string searchWord)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

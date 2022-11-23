@@ -21,19 +21,6 @@ namespace bacit_dotnet.MVC.Tests.Controllers
         }
 
         [Test]
-        public void Test_SuggestionIndex_ReturnView()
-        {
-            var repoSuggestions = new TestSqlSuggestionsRepository();
-            var repoTeams = new TestSqlTeamRepository();
-            var repoCategory = new TestSqlCategoryRepository();
-            var testController = new SuggestionsController(repoSuggestions, repoTeams, repoCategory);
-
-            var result = testController.Index() as ViewResult;
-
-            Assert.AreEqual("Index", result.ViewName);
-        }
-
-        [Test]
         public void Test_Suggestiondetails_ReturnView()
         {
             var repoSuggestions = new TestSqlSuggestionsRepository();
