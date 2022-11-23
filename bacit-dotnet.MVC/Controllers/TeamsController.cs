@@ -2,6 +2,10 @@
 using bacit_dotnet.MVC.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
 namespace bacit_dotnet.MVC.Controllers
 {
