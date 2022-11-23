@@ -30,21 +30,12 @@ namespace bacit_dotnet.MVC.Controllers
             if (searchWord == null || searchWord.Equals("all"))
             {
                 model.Suggestions = suggestionRepository.GetSuggestions();
-                return View("Index", model);
+                return View(model);
             } else
             {
                 model.Suggestions = suggestionRepository.GetSuggestionsWithSearchQyery(searchWord);
                 return View(model);
             }
-        }
-        [HttpGet]
-        public IActionResult SearchResult(string searchWord)
-        {
-            var teamlist = teamRepository.GetTeams();
-            ViewData["TeamList"] = teamlist;
-            var model = new SuggestionList();
-            model.Suggestions = suggestionRepository.GetSuggestionsWithSearchQyery(searchWord);
-            return View(model);
         }
         public IActionResult Create()
         {
@@ -108,16 +99,11 @@ namespace bacit_dotnet.MVC.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var suggestion = suggestionRepository.GetSuggestions()
                 .FirstOrDefault(m => m.SuggestionID == id); //returns the first value of multiple elemnts that meets the requirements
-            if (suggestion == null)
-            {
-                return NotFound();
-            }
-
             return View("Details",suggestion);
         }
     }
