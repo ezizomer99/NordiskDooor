@@ -1,4 +1,5 @@
 ﻿using bacit_dotnet.MVC.Models.Suggestions;
+using bacit_dotnet.MVC.Models.Teams;
 using bacit_dotnet.MVC.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -20,12 +21,30 @@ namespace bacit_dotnet.MVC.Controllers
             this.teamRepository = teamRepository;
             this.categoryRepository = categoryRepository;
         }
-
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(string searchWord)
         {
+            var teamlist = teamRepository.GetTeams();
             var model = new SuggestionList();
-            model.Suggestions = suggestionRepository.GetSuggestions();
-            return View("Index",model);
+            ViewData["TeamList"] = teamlist;
+            if (searchWord == null || searchWord.Equals("all"))
+            {
+                model.Suggestions = suggestionRepository.GetSuggestions();
+                return View("Index", model);
+            } else
+            {
+                model.Suggestions = suggestionRepository.GetSuggestionsWithSearchQyery(searchWord);
+                return View(model);
+            }
+        }
+        [HttpGet]
+        public IActionResult SearchResult(string searchWord)
+        {
+            var teamlist = teamRepository.GetTeams();
+            ViewData["TeamList"] = teamlist;
+            var model = new SuggestionList();
+            model.Suggestions = suggestionRepository.GetSuggestionsWithSearchQyery(searchWord);
+            return View(model);
         }
         public IActionResult Create()
         {

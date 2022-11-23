@@ -1,5 +1,20 @@
 ﻿@using bacit_dotnet.MVC.Models.Suggestions
+@using bacit_dotnet.MVC.Models.Teams
 @model SuggestionList
+@{
+    var teamList = ViewData["TeamList"] as List<TeamEntity>;
+}
+<form asp-action="Index" method="get">
+    <label>Velg Lag</label>
+    <select name="searchWord">
+            <option value="all">Alle Team</option>
+        @foreach (var team in teamList)
+        {
+            <option value="@team.TeamName">@team.TeamName</option>
+        }
+    </select>
+    <input type="submit" value="Søk" />
+</form>
 <table class ="table table-bordered table-responsive table-hover">
     <thead>
         <tr>
