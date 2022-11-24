@@ -10,6 +10,7 @@ namespace bacit_dotnet.MVC.Tests.Controllers
     [TestFixture]
     public class SuggestionsControllerTests
     {
+        private SuggestionsController _suggestionController;
         
         [SetUp]
         public void Setup()
@@ -17,18 +18,13 @@ namespace bacit_dotnet.MVC.Tests.Controllers
             var repoSuggestions = new TestSqlSuggestionsRepository();
             var repoTeams = new TestSqlTeamRepository();
             var repoCategory = new TestSqlCategoryRepository();
-            var testController = new SuggestionsController(repoSuggestions,repoTeams, repoCategory);
+            _suggestionController = new SuggestionsController(repoSuggestions,repoTeams, repoCategory);
         }
 
         [Test]
-        public void Test_Suggestiondetails_ReturnView()
+        public void Test_SuggestionDetails_ReturnView()
         {
-            var repoSuggestions = new TestSqlSuggestionsRepository();
-            var repoTeams = new TestSqlTeamRepository();
-            var repoCategory = new TestSqlCategoryRepository();
-            var testController = new SuggestionsController(repoSuggestions, repoTeams, repoCategory);
-
-            var result = testController.Details(1) as ViewResult;
+            var result = _suggestionController.Details(1) as ViewResult;
 
             Assert.AreEqual("Details", result.ViewName);
         }
@@ -57,16 +53,18 @@ namespace bacit_dotnet.MVC.Tests.Controllers
         [Test]
         public void Test_SuggestionDelete_ReturnIndexView()
         {
-           
-            var repoSuggestions = new TestSqlSuggestionsRepository();
-            var repoTeams = new TestSqlTeamRepository();
-            var repoCategory = new TestSqlCategoryRepository();
-            var testController = new SuggestionsController(repoSuggestions, repoTeams, repoCategory);
-
-
-            var result = testController.Delete(1) as RedirectToActionResult;
+            var result = _suggestionController.Delete(1) as RedirectToActionResult;
 
             Assert.AreEqual("Index", result.ActionName);
+        }
+
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(10)]
+        public void Test_SuggestionsDetails_ReturnsSuggestion(int value)
+        {
+            var result = _suggestionController.Details(value);
+            
         }
 
     }
