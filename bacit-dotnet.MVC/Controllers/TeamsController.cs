@@ -6,6 +6,7 @@ using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace bacit_dotnet.MVC.Controllers
 {
+    //Viser at det er brukt autorisasjon, hvor en er nødt til å ha rollen "Admin" for å akksesere
     [Authorize(Roles = "Admin")]
     public class TeamsController : Controller
     {
