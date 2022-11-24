@@ -55,20 +55,6 @@ namespace bacit_dotnet.MVC.Controllers
             return View(model);
         }
 
-        public IActionResult ProcessLogin(UserEntity userEntity)
-        {
-            
-            if (userList.IsValidUser(userEntity))
-            {
-                userEntity = userList.GetUser(userEntity.EmployeeNumber);
-                return View("LoginSuccess", userEntity);
-            }
-            else
-            {
-                return RedirectToAction("Index");
-            }
-        }
-
         [HttpGet]
         public IActionResult setAdmin(string employeeNumber, bool isAdmin)
         {

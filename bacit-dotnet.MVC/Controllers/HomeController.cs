@@ -1,8 +1,6 @@
 ﻿
 //Forteller kompilatoren å bruke ulike namespaces så en ikke trenger å skrive det fulle navnet av klassen når en skal bruke den
 //Gjør kode til mær clean kode og gjør prosjektet enklere å kode med
-using bacit_dotnet.MVC.DataAccess;
-using bacit_dotnet.MVC.Models;
 using bacit_dotnet.MVC.Models.Users;
 using bacit_dotnet.MVC.Repositories;
 using bacit_dotnet.MVC.Security;
