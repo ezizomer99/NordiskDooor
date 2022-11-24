@@ -1,4 +1,5 @@
 ﻿using bacit_dotnet.MVC.DataAccess;
+using bacit_dotnet.MVC.Repositories.Misc;
 using bacit_dotnet.MVC.Models.Category;
 using System.Data;
 
@@ -18,7 +19,7 @@ namespace bacit_dotnet.MVC.Repositories
         {
             using (var connection = sqlConnector.GetDbConnection())
             {
-                var reader = ReadData("Select CategoryId, CategoryName from Category;", connection);
+                var reader = Command.ReadData("Select CategoryId, CategoryName from Category;", connection);
                 var categories = new List<CategoryEntity>();
                 while (reader.Read())
                 {
@@ -27,7 +28,6 @@ namespace bacit_dotnet.MVC.Repositories
                 }
                 connection.Close();
                 return categories;
-
             }
         }
 
@@ -37,15 +37,6 @@ namespace bacit_dotnet.MVC.Repositories
             category.CategoryId = reader.GetInt16(0);
             category.CategoryName = reader.GetString(1);
             return category;
-        }
-
-        private IDataReader ReadData(string query, IDbConnection connection)
-        {
-            connection.Open();
-            using var command = connection.CreateCommand();
-            command.CommandType = System.Data.CommandType.Text;
-            command.CommandText = query;
-            return command.ExecuteReader();
         }
     }
 }

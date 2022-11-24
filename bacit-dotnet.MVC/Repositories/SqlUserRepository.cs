@@ -1,4 +1,5 @@
 ﻿using bacit_dotnet.MVC.DataAccess;
+using bacit_dotnet.MVC.Repositories.Misc;
 using bacit_dotnet.MVC.Models.Users;
 using MySqlConnector;
 using System.Data;
@@ -13,17 +14,18 @@ namespace bacit_dotnet.MVC.Repositories
         {
             this.sqlConnector = sqlConnector;
         }
-        public void Delete(string email)
+        public void Delete(string employeeNumber)
         {
-            var sql = $"delete from users where email = '{email}'";
-            RunCommand(sql);
+            var sql = $"delete from users where employeeNumber = '{employeeNumber}'";
+            var conn = sqlConnector.GetDbConnection();
+            Command.RunCommand(sql, conn);
         }
 
         public List<UserEntity> GetUsers()
         {
             using (var connection = sqlConnector.GetDbConnection())
             {
-                var reader = ReadData("Select EmployeeNumber, Name, Email, Password, IsAdmin from users;", connection);
+                var reader = Command.ReadData("Select EmployeeNumber, Name, Email, Password, IsAdmin from users;", connection);
                 var users = new List<UserEntity>();
                 while (reader.Read())
                 {
@@ -39,7 +41,8 @@ namespace bacit_dotnet.MVC.Repositories
         public void SetAdmin(string employeeNumber, bool isAdmin)
         {
             var sql = $"update users set isAdmin={isAdmin} where employeenumber = '{employeeNumber}'";
-            RunCommand(sql);
+            var conn = sqlConnector.GetDbConnection();
+            Command.RunCommand(sql, conn);
         }
 
         private static UserEntity MapUserFromReader(IDataReader reader)
@@ -57,28 +60,8 @@ namespace bacit_dotnet.MVC.Repositories
         {
 
                 var sql = $"insert into users(EmployeeNumber,Name, Email, Password ) values('{user.EmployeeNumber}','{user.Name}', '{user.Email}', '{user.Password}');";
-                RunCommand(sql);
-        }
-
-        private void RunCommand(string sql)
-        {
-            using (var connection = sqlConnector.GetDbConnection())
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText = sql;
-                command.ExecuteNonQuery();
-                connection.Close();
-            }
-        }
-
-        private IDataReader ReadData(string query, IDbConnection connection)
-        {
-            connection.Open();
-            using var command = connection.CreateCommand();
-            command.CommandType = System.Data.CommandType.Text;
-            command.CommandText = query;
-            return command.ExecuteReader();
+                var conn = sqlConnector.GetDbConnection();
+                Command.RunCommand(sql, conn);
         }
     }
 }

@@ -43,9 +43,9 @@ namespace bacit_dotnet.MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(string email)
+        public IActionResult Delete(string employeeNumber)
         {
-            userRepository.Delete(email);
+            userRepository.Delete(employeeNumber);
             return RedirectToAction("Index");
         }
         

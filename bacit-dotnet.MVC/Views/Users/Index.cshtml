@@ -29,8 +29,8 @@
             </td>
             <td>
                 <form asp-action="delete" asp-controller="users" method="post">
-                    <input type="hidden" name="Email" value="@user.Email" />
-                    <input onclick="return confirm('Er du sikker på at du vil slette?')" class="btn btn-danger" type="submit" value="Slett" />
+                    <input type="hidden" name="employeeNumber" value="@user.EmployeeNumber" />
+                    <input onclick="return confirm('Er du sikker på at du vil slette @user.Name ?' )" class="btn btn-danger" type="submit" value="Slett" />
                 </form>
             </td>
         </tr>   
