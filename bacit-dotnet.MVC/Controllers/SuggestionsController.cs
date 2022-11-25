@@ -86,6 +86,10 @@ namespace bacit_dotnet.MVC.Controllers
 
             var suggestion = suggestionRepository.GetSuggestions()
                 .FirstOrDefault(m => m.SuggestionID == id); //returns the first value of multiple elemnts that meets the requirements
+            if (suggestion == null)
+            {
+                return RedirectToAction("Index");
+            }
             return View("Details",suggestion);
         }
     }

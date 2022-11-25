@@ -61,7 +61,7 @@ namespace bacit_dotnet.MVC.Controllers
                 if (user.Password.Equals(EncryptString.Encrypt(password)))
                 {
                     var claims = new List<Claim>();
-                    claims.Add(new Claim(ClaimTypes.NameIdentifier, employeeNumber));
+                    claims.Add(new Claim(ClaimTypes.NameIdentifier, user.EmployeeNumber));
                     claims.Add(new Claim(ClaimTypes.Name, user.Name));
                     claims.Add(new Claim(ClaimTypes.Email, user.Email));
                     if (user.IsAdmin)

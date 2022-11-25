@@ -40,23 +40,33 @@ namespace bacit_dotnet.MVC.Tests.Controllers
         }
 
         [TestCase(1)]
-        [TestCase(2)]
+        [TestCase(2)] //Test repositoriet til suggestion har bare 2 forslag som du får ifra getSuggestions med id 1 og 2 
         public void Test_SuggestionsDetails_ReturnsView(int value)
         {
             var result = _suggestionController.Details(value) as ViewResult;
 
             Assert.AreEqual("Details", result.ViewName);
-            
+        }
+
+        [TestCase(null)]
+        [TestCase(4)]
+        public void Test_SuggestionsDetails_RedirectsWhenSuggNotFound(int value)
+        {
+            var result = _suggestionController.Details(value) as RedirectToActionResult;
+
+            Assert.AreEqual("Index", result.ActionName);
         }
 
         [Test]
-        public void Test_SuggestionsDetails_RedirectsWhenIdIsNull()
+        public void Test_SuggestionsSave_RedirectsToIndexWhenSucces()
         {
-            var result = _suggestionController.Details(null) as RedirectToActionResult;
+            var suggestion = new SuggestionEntity();
+
+            var result = _suggestionController.Save(suggestion) as RedirectToActionResult;
 
             Assert.AreEqual("Index", result.ActionName);
-
         }
+
 
     }
 }

@@ -29,7 +29,7 @@ namespace bacit_dotnet.MVC.Controllers
         [HttpPost]
         public IActionResult AddTeam(TeamEntity model)
         {
-            _logger.LogInformation($"{model.TeamName}");
+            _logger.LogInformation($" Teamname is: {model.TeamName}");
             teamRepository.Add(model);
             return RedirectToAction("Index", "Teams");
         }
