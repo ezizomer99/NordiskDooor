@@ -41,7 +41,7 @@ namespace bacit_dotnet.MVC.Controllers
             userRepository.Add(model);
             return RedirectToAction("Index","suggestions");
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Delete(string employeeNumber)
         {
@@ -54,16 +54,12 @@ namespace bacit_dotnet.MVC.Controllers
             var model = new UserEntity();
             return View(model);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult setAdmin(string employeeNumber, bool isAdmin)
         {
             userRepository.SetAdmin(employeeNumber, isAdmin);
             return RedirectToAction("Index");
-        }
-        public IActionResult Login()
-        {
-            return View();
         }
 
     }
