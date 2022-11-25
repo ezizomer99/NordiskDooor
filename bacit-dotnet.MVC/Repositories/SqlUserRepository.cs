@@ -8,9 +8,9 @@ namespace bacit_dotnet.MVC.Repositories
 {
     public class SqlUserRepository : IUserRepository
     {
-        private readonly ISqlConnector sqlConnector;
+        private readonly SqlConnector sqlConnector;
 
-        public SqlUserRepository(ISqlConnector sqlConnector)
+        public SqlUserRepository(SqlConnector sqlConnector)
         {
             this.sqlConnector = sqlConnector;
         }

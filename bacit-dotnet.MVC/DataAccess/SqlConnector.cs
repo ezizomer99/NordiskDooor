@@ -1,11 +1,9 @@
-﻿using MySqlConnector;
+﻿using MySql.Data.MySqlClient;
 using System.Data;
-using System.Data.Common;
+namespace bacit_dotnet.MVC.DataAccess;
 
-namespace bacit_dotnet.MVC.DataAccess
-{
-    public class SqlConnector : ISqlConnector
-    {
+    public class SqlConnector { 
+    
         private readonly IConfiguration config;
 
         public SqlConnector(IConfiguration config)
@@ -17,6 +15,5 @@ namespace bacit_dotnet.MVC.DataAccess
         {
             return new MySqlConnection(config.GetConnectionString("MariaDb"));
         }
-          
+
     }
-}

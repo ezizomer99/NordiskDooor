@@ -13,7 +13,7 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
-        builder.Services.AddTransient<ISqlConnector, SqlConnector>();
+        builder.Services.AddTransient<SqlConnector>();
 
         builder.Services.AddSingleton<IUserRepository, SqlUserRepository>();
         builder.Services.AddSingleton<ISuggestionRepository, SqlSuggestionRepository>();
