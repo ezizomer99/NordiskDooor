@@ -1,5 +1,6 @@
 ﻿using bacit_dotnet.MVC.DataAccess;
 using bacit_dotnet.MVC.Models.Teams;
+using bacit_dotnet.MVC.Repositories.Misc;
 using MySqlConnector;
 using System.Data;
 
@@ -16,14 +17,15 @@ namespace bacit_dotnet.MVC.Repositories
         public void Delete(int teamID)
         {
             var sql = $"delete from teams where TeamID = '{teamID}';";
-            RunCommand(sql);
+            var conn = sqlConnector.GetDbConnection();
+            Command.RunCommand(sql, conn);
         }
 
         public List<TeamEntity> GetTeams()
         {
             using (var connection = sqlConnector.GetDbConnection())
             {
-                var reader = ReadData("Select TeamID, TeamName from teams;", connection);
+                var reader = Command.ReadData("Select TeamID, TeamName from teams;", connection);
                 var teams = new List<TeamEntity>();
                 while (reader.Read())
                 {
@@ -48,28 +50,8 @@ namespace bacit_dotnet.MVC.Repositories
         {
 
             var sql = $"insert into teams(TeamID,TeamName) values('{team.TeamID}','{team.TeamName}');";
-            RunCommand(sql);
-        }
-
-        private void RunCommand(string sql)
-        {
-            using (var connection = sqlConnector.GetDbConnection())
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText = sql;
-                command.ExecuteNonQuery();
-                connection.Close();
-            }
-        }
-
-        private IDataReader ReadData(string query, IDbConnection connection)
-        {
-            connection.Open();
-            using var command = connection.CreateCommand();
-            command.CommandType = System.Data.CommandType.Text;
-            command.CommandText = query;
-            return command.ExecuteReader();
+            var conn = sqlConnector.GetDbConnection();
+            Command.RunCommand(sql, conn);
         }
     }
 }

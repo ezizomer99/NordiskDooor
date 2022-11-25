@@ -1,5 +1,21 @@
 ﻿@using bacit_dotnet.MVC.Models.Suggestions
+@using bacit_dotnet.MVC.Models.Teams
 @model SuggestionList
+@{
+    var teamList = ViewData["TeamList"] as List<TeamEntity>;
+}
+<form asp-action="Index" method="get">
+    <label for="searchWord"><b>Vis forslag til team: </b></label>
+    <select class="form-select-sm" name="searchWord">
+            <option value="all">Alle Team</option>
+        @foreach (var team in teamList)
+        {
+            <option value="@team.TeamName">@team.TeamName</option>
+        }
+    </select>
+    <input class="btn btn-secondary" type="submit" value="Søk" />
+</form>
+
 <table class ="table table-bordered table-responsive table-hover">
     <thead>
         <tr>
@@ -7,7 +23,7 @@
             <td><b>Navn</b></td>
             <td><b>Status</b></td>
             <td><b>Kategori</b></td>
-            <td><b>Dato Oppretet</b></td>
+            <td><b>Frist</b></td>
         </tr>
     </thead>
     <tbody>
@@ -18,18 +34,18 @@
                 <td>@suggestion.SuggestionMakerID</td>
                 <td>@suggestion.Status</td>
                 <td>@suggestion.Category</td>
-                <td>@suggestion.TimeStamp</td>
-                <td><a asp-action="Details" asp-route-id="@suggestion.SuggestionID">Details</a></td>
+                <td>@suggestion.Deadline</td>
+                <td><a class="btn btn-info" asp-action="Details" asp-route-id="@suggestion.SuggestionID">Details</a></td>
                 <td>
                     <form asp-action="edit" asp-controller="suggestions" method="get">
                         <input type="hidden" name="Suggestionid" value="@suggestion.SuggestionID" />
-                        <input type="submit" value="Endre" />
+                        <input class="btn btn-secondary" type="submit" value="Endre" />
                     </form>
                 </td>
 
                 <td><form asp-controller="suggestions" asp-action="Delete">
                     <input type="hidden" name="SuggestionID" value="@suggestion.SuggestionID" />
-                    <input type="submit" value="Slett" class="btn-danger" />
+                        <input onclick="return confirm('Er du sikker på at du vil slette?')" type="submit" value="Slett" class="btn btn-danger" />
                     </form>
                 </td>
                

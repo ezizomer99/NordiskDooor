@@ -11,7 +11,6 @@ namespace bacit_dotnet.MVC.Controllers
     {
         private readonly IUserRepository userRepository;
         private UserList userList = new UserList();
-        //private readonly ILogger logger;
        
 
         public UsersController(IUserRepository userRepository)
@@ -30,15 +29,23 @@ namespace bacit_dotnet.MVC.Controllers
         [HttpPost]
         public IActionResult AddUser(UserEntity model)
         {
+            
             model.Password = EncryptString.Encrypt(model.Password);
+            model.RepeatPassword = EncryptString.Encrypt(model.RepeatPassword);
+            if (!model.Password.Equals(model.RepeatPassword))
+            {
+                string error = "Passordfeltene er ikke like";
+                TempData["Error"] = error;
+                return RedirectToAction("Register");
+            }
             userRepository.Add(model);
             return RedirectToAction("Index","suggestions");
         }
 
         [HttpPost]
-        public IActionResult Delete(string email)
+        public IActionResult Delete(string employeeNumber)
         {
-            userRepository.Delete(email);
+            userRepository.Delete(employeeNumber);
             return RedirectToAction("Index");
         }
         
@@ -46,22 +53,6 @@ namespace bacit_dotnet.MVC.Controllers
         {
             var model = new UserEntity();
             return View(model);
-
-           
-        }
-
-        public IActionResult ProcessLogin(UserEntity userEntity)
-        {
-            
-            if (userList.IsValidUser(userEntity))
-            {
-                userEntity = userList.GetUser(userEntity.EmployeeNumber);
-                return View("LoginSuccess", userEntity);
-            }
-            else
-            {
-                return RedirectToAction("Index");
-            }
         }
 
         [HttpGet]

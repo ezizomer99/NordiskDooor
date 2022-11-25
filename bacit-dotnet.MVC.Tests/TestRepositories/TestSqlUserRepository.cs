@@ -21,7 +21,7 @@ namespace bacit_dotnet.MVC.Tests.TestRepositories
             users.Add(new UserEntity { EmployeeNumber = "9999" });
             return users;
         }
-        public void Delete(string email)
+        public void Delete(string employeeNumber)
         {
             return;
         }

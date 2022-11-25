@@ -10,6 +10,7 @@ namespace bacit_dotnet.MVC.Tests.Controllers
     [TestFixture]
     public class SuggestionsControllerTests
     {
+        private SuggestionsController _suggestionController;
         
         [SetUp]
         public void Setup()
@@ -17,70 +18,55 @@ namespace bacit_dotnet.MVC.Tests.Controllers
             var repoSuggestions = new TestSqlSuggestionsRepository();
             var repoTeams = new TestSqlTeamRepository();
             var repoCategory = new TestSqlCategoryRepository();
-            var testController = new SuggestionsController(repoSuggestions,repoTeams, repoCategory);
+            _suggestionController = new SuggestionsController(repoSuggestions,repoTeams, repoCategory);
         }
 
         [Test]
-        public void Test_SuggestionIndex_ReturnView()
+        public void Test_SuggestionDetails_ReturnView()
         {
-            var repoSuggestions = new TestSqlSuggestionsRepository();
-            var repoTeams = new TestSqlTeamRepository();
-            var repoCategory = new TestSqlCategoryRepository();
-            var testController = new SuggestionsController(repoSuggestions, repoTeams, repoCategory);
-
-            var result = testController.Index() as ViewResult;
-
-            Assert.AreEqual("Index", result.ViewName);
-        }
-
-        [Test]
-        public void Test_Suggestiondetails_ReturnView()
-        {
-            var repoSuggestions = new TestSqlSuggestionsRepository();
-            var repoTeams = new TestSqlTeamRepository();
-            var repoCategory = new TestSqlCategoryRepository();
-            var testController = new SuggestionsController(repoSuggestions, repoTeams, repoCategory);
-
-            var result = testController.Details(1) as ViewResult;
+            var result = _suggestionController.Details(1) as ViewResult;
 
             Assert.AreEqual("Details", result.ViewName);
         }
 
-       /*[Test]
-        public void Test_AddSuggestion_WhenTitleIsNull()
-        {
-            //Tempdata vil føre til en NullRefrenceException, uten TempData vil denne fungere
-            //Har noe med sesssion å gjøre
-            var repoSuggestions = new TestSqlSuggestionsRepository();
-            var repoTeams = new TestSqlTeamRepository();
-            var testController = new SuggestionsController(repoSuggestions, repoTeams);
-            var suggestion = new SuggestionEntity
-            {
-                SuggestionID = 1,
-                SuggestionMakerID = "0000",
-                Title = null,
-                Description = "DawdAW"
-            };
-
-            var result = testController.AddSuggestion(suggestion) as RedirectToActionResult;
-
-            Assert.AreEqual("Create",result.ActionName);
-        }*/
+       
 
         [Test]
         public void Test_SuggestionDelete_ReturnIndexView()
         {
-           
-            var repoSuggestions = new TestSqlSuggestionsRepository();
-            var repoTeams = new TestSqlTeamRepository();
-            var repoCategory = new TestSqlCategoryRepository();
-            var testController = new SuggestionsController(repoSuggestions, repoTeams, repoCategory);
-
-
-            var result = testController.Delete(1) as RedirectToActionResult;
+            var result = _suggestionController.Delete(1) as RedirectToActionResult;
 
             Assert.AreEqual("Index", result.ActionName);
         }
+
+        [TestCase(1)]
+        [TestCase(2)] //Test repositoriet til suggestion har bare 2 forslag som du får ifra getSuggestions med id 1 og 2 
+        public void Test_SuggestionsDetails_ReturnsView(int value)
+        {
+            var result = _suggestionController.Details(value) as ViewResult;
+
+            Assert.AreEqual("Details", result.ViewName);
+        }
+
+        [TestCase(null)]
+        [TestCase(4)]
+        public void Test_SuggestionsDetails_RedirectsWhenSuggNotFound(int value)
+        {
+            var result = _suggestionController.Details(value) as RedirectToActionResult;
+
+            Assert.AreEqual("Index", result.ActionName);
+        }
+
+        [Test]
+        public void Test_SuggestionsSave_RedirectsToIndexWhenSucces()
+        {
+            var suggestion = new SuggestionEntity();
+
+            var result = _suggestionController.Save(suggestion) as RedirectToActionResult;
+
+            Assert.AreEqual("Index", result.ActionName);
+        }
+
 
     }
 }

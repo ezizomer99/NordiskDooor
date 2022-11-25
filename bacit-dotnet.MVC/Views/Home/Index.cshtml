@@ -1,10 +1,15 @@
 ﻿@model bacit_dotnet.MVC.Models.RazorViewModel
 <h1>Nordic Door </h1>
-<form asp-controller="Suggestions">
+
+<form asp-controller="Suggestions" asp-action="Index" method="get">
     <input type="submit" value="Gå til Forslag" class="form-control btn btn-dark"/>
 </form>
 <br />
-<form asp-action="Login">
-    <input type="submit" value="Logg inn" class="form-control btn btn-secondary" />
-</form>
+@if (!User.Identity.IsAuthenticated)
+{
+    <form asp-action="Login">
+        <input type="submit" value="Logg inn" class="form-control btn btn-secondary" />
+    </form>
+}
+
 

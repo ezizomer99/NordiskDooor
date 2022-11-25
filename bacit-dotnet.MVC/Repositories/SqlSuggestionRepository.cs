@@ -3,6 +3,7 @@ using bacit_dotnet.MVC.Models.Suggestions;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MySqlConnector;
 using System.Data;
+using bacit_dotnet.MVC.Repositories.Misc;
 
 namespace bacit_dotnet.MVC.Repositories
 {
@@ -20,7 +21,7 @@ namespace bacit_dotnet.MVC.Repositories
         {
             using (var connection = sqlConnector.GetDbConnection())
             {
-                var reader = ReadData("select suggestionid, name, title,description,categoryname, teamname,phase,status,timestamp,deadline  from ((suggestions inner join users on if(suggestionmakerid is null, '9999',suggestionmakerid)=employeenumber) inner join category on suggestions.categoryid = category.categoryid) inner join teams on suggestions.teamid=teams.teamid;", connection);
+                var reader = Command.ReadData("select suggestionid, name, title,description,categoryname, teamname,phase,status,timestamp,deadline  from ((suggestions inner join users on if(suggestionmakerid is null, '9999',suggestionmakerid)=employeenumber) inner join category on suggestions.categoryid = category.categoryid) inner join teams on suggestions.teamid=teams.teamid;", connection);
                 var suggestions = new List<SuggestionEntity>();
                 while (reader.Read())
                 {
@@ -30,6 +31,21 @@ namespace bacit_dotnet.MVC.Repositories
                 connection.Close();
                 return suggestions;
                 
+            }
+        }
+        public List<SuggestionEntity> GetSuggestionsWithSearchQyery(string searchWord)
+        {
+            using (var connection = sqlConnector.GetDbConnection())
+            {
+                var reader = Command.ReadData($"select suggestionid, name, title,description,categoryname, teamname,phase,status,timestamp,deadline  from ((suggestions inner join users on if(suggestionmakerid is null, '9999',suggestionmakerid)=employeenumber) inner join category on suggestions.categoryid = category.categoryid) inner join teams on suggestions.teamid=teams.teamid and teamname='{searchWord}';", connection);
+                var suggestions = new List<SuggestionEntity>();
+                while (reader.Read())
+                {
+                    SuggestionEntity suggestion = MapUSuggestionFromReader(reader);
+                    suggestions.Add(suggestion);
+                }
+                connection.Close();
+                return suggestions;
             }
         }
         //MapSuggestionFromReader tar og leser hver enkelt rad i tabelen suggestions og lager enteties ut ifra dem
@@ -52,12 +68,14 @@ namespace bacit_dotnet.MVC.Repositories
         public void AddSuggestion(SuggestionEntity suggestion)
         {
             var sql = $"insert into suggestions(SuggestionMakerID, Title, CategoryID, TeamID, Description, Phase, Status, Deadline) values('{suggestion.SuggestionMakerID}', '{suggestion.Title}', '{suggestion.Category}', '{suggestion.Team}', '{suggestion.Description}', '{suggestion.Phase}', '{suggestion.Status}', '{suggestion.Deadline}');";
-            RunCommand(sql);
+            var conn = sqlConnector.GetDbConnection();
+            Command.RunCommand(sql,conn);
         }
         public void Delete(int SuggestionID)
         {
             var sql = $" delete from suggestions where SuggestionID = '{SuggestionID}'";
-            RunCommand(sql);
+            var conn = sqlConnector.GetDbConnection();
+            Command.RunCommand(sql, conn);
         }
 
         public void Edit(SuggestionEntity suggestion)
@@ -77,29 +95,8 @@ namespace bacit_dotnet.MVC.Repositories
                                    Status ='{suggestion.Status}' ,
                                    Deadline ='{suggestion.Deadline}' 
                                 where suggestionID = '{suggestion.SuggestionID}';";
-            RunCommand(sql);
-        }
-
-        //runcommand får en string og sender stringen til databasen 
-        private void RunCommand(string sql)
-        {
-            using (var connection = sqlConnector.GetDbConnection())
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText = sql;
-                command.ExecuteNonQuery();
-                connection.Close();
-            }
-        }
-        //readData leser 
-        private IDataReader ReadData(string query, IDbConnection connection)
-        {
-            connection.Open(); 
-            using var command = connection.CreateCommand();
-            command.CommandType = System.Data.CommandType.Text;
-            command.CommandText = query;
-            return command.ExecuteReader();
+            var conn = sqlConnector.GetDbConnection();
+            Command.RunCommand(sql, conn);
         }
     }
 }

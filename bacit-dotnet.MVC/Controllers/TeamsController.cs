@@ -2,17 +2,21 @@
 using bacit_dotnet.MVC.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace bacit_dotnet.MVC.Controllers
 {
+    //Viser at det er brukt autorisasjon, hvor en er nødt til å ha rollen "Admin" for å akksesere
     [Authorize(Roles = "Admin")]
     public class TeamsController : Controller
     {
         private readonly ITeamRepository teamRepository;
+        private readonly ILogger<TeamsController> _logger;
 
-        public TeamsController(ITeamRepository teamRepository)
+        public TeamsController(ITeamRepository teamRepository, ILogger<TeamsController> _logger)
         {
             this.teamRepository = teamRepository;
+            this._logger = _logger;
         }
         
         public IActionResult Index()
@@ -25,11 +29,7 @@ namespace bacit_dotnet.MVC.Controllers
         [HttpPost]
         public IActionResult AddTeam(TeamEntity model)
         {
-            if (model.TeamName == null)
-            {
-                TempData["Error"] = "Må fylle inn Team Navn";
-                return RedirectToAction("Register");
-            }
+            _logger.LogInformation($" Teamname is: {model.TeamName}");
             teamRepository.Add(model);
             return RedirectToAction("Index", "Teams");
         }

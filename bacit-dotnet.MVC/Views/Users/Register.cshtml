@@ -1,24 +1,29 @@
 ﻿
 @using bacit_dotnet.MVC.Models.Users
 @model UserEntity
-
+@{
+    var error = TempData["Error"] as string;
+}
 <form asp-action="AddUser" asp-controller="Users" method="post">  
     <h1>Registrer bruker</h1><br />
 
     <label for="EmployeeNumber">Ansattnummer</label><br />
-    <input class="form-control" type="text" name="EmployeeNumber" required /><br />
+    <input class="form-control" type="text" name="EmployeeNumber" required placeholder="Ansatt nummer" /><br />
 
     <label for="Name">Navn</label><br />
-    <input class="form-control" type="text" name="Name" required /><br />
+    <input class="form-control" type="text" name="Name" required placeholder="Navn"/><br />
 
     <label for="Email">E-post</label><br />
-    <input class="form-control" type="text" name="Email" required /><br />
-
+    <input class="form-control" type="text" name="Email" placeholder="E-post" required /><br />
+    @if (error != null)
+    {
+        <h5 style="text-align:center;" class="alert-danger"> @error </h5>
+    }
     <label for="Password">Passord</label><br />
-    <input class="form-control" type="password" name="Password" required /><br />
+    <input class="form-control" type="password" name="Password" placeholder="Passord" required /><br />
 
     <label for="RepeatPassword">Gjenta passord</label><br />
-    <input class="form-control" type="password" name="RepeatPassword" required /><br />
+    <input class="form-control" type="password" name="RepeatPassword" placeholder="Gjenta passord" required /><br />
 
     <button type="submit" class="form-control btn btn-dark">Registrer bruker</button>
 </form>
