@@ -8,9 +8,9 @@ namespace bacit_dotnet.MVC.Repositories
     public class SqlCategoryRepository : ICategoryRepository
     {
 
-        private readonly ISqlConnector sqlConnector;
+        private readonly SqlConnector sqlConnector;
 
-        public SqlCategoryRepository(ISqlConnector sqlConnector)
+        public SqlCategoryRepository(SqlConnector sqlConnector)
         {
             this.sqlConnector = sqlConnector;
         }

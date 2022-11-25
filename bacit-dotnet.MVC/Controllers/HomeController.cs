@@ -1,6 +1,4 @@
 ﻿
-//Forteller kompilatoren å bruke ulike namespaces så en ikke trenger å skrive det fulle navnet av klassen når en skal bruke den
-//Gjør kode til mær clean kode og gjør prosjektet enklere å kode med
 using bacit_dotnet.MVC.Models.Users;
 using bacit_dotnet.MVC.Repositories;
 using bacit_dotnet.MVC.Security;
@@ -10,19 +8,16 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-//namespace opprettes hvor visse funksjoner, variabler, etc beskrives
+
 namespace bacit_dotnet.MVC.Controllers
 {
-    //HomeController som arver fra Controller klassen som støtter for MVC tilegg
+
     public class HomeController : Controller
     {
-        //Leser fra interface som har metoden Getusers() som henter fra databasen
         private readonly IUserRepository userRepository;
         private UserList userList = new UserList();
         
-        //Constructoren til klassen
-        // tar inn et objekt av IUserRepository setter variablen til userRepository
-        // kaller på GetUsers() metoden på objektet  
+
         public HomeController( IUserRepository userRepository)
         {
             
@@ -30,7 +25,7 @@ namespace bacit_dotnet.MVC.Controllers
             userList.Users = userRepository.GetUsers();
         }
 
-        //Metode for å returnere view-et, er IActionResult som kan returnere View eller RedirectToAction 
+        //Metode for å returnere view-et, er IActionResult som kan returnere  for eksempel View eller RedirectToAction 
         public IActionResult Index()
         {
             return View("Index");
@@ -43,9 +38,7 @@ namespace bacit_dotnet.MVC.Controllers
             
             return View();
         }
-        //HttpPost ber requesten om serveren godtar dataene, i dette tilfellet om en bruker er validert eller ikke
         //Hvis EmployeeNumber og Password er korrekt med det som er lagret i databasen vil de klare å logge inn og blir sendt til Suggestions-View
-        //Async gjør at det er mulig å vente for signin (Task er "waitable")
         [HttpPost("login")]
         public async Task<IActionResult> Validate(string employeeNumber, string password)
         {
@@ -86,15 +79,15 @@ namespace bacit_dotnet.MVC.Controllers
                 return View("login");
             }
         }
-        //Legger til data til koden og viser til at kun brukere som er autorisert kan akksesere denne metoden i kontrolleren 
-        [Authorize]
+
+        [Authorize]  //Legger til data til koden og viser til at kun brukere som er autorisert kan akksesere denne metoden i kontrolleren 
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
             return Redirect("/");
             
         }
-        //HttpGet tar å forcer view-et denied om en prøver å bruke ulike sider uten tilgang
+        //HttpGet tar å forcer view-et denied om en prøver å bruke sider uten tilgang til siden
         [HttpGet("Denied")]
         public IActionResult Denied()
         {

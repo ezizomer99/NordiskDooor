@@ -10,9 +10,9 @@ namespace bacit_dotnet.MVC.Repositories
     public class SqlSuggestionRepository : ISuggestionRepository
     {
 
-        private readonly ISqlConnector sqlConnector;
+        private readonly SqlConnector sqlConnector;
 
-        public SqlSuggestionRepository(ISqlConnector sqlConnector)
+        public SqlSuggestionRepository(SqlConnector sqlConnector)
         {
             this.sqlConnector = sqlConnector;
         }
